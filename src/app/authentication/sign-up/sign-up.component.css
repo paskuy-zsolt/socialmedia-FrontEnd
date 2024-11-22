@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+.container {
+    width: 500px;
+    max-width: 442px;
+    margin: 1rem;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .2);
+    border-radius: 4px;
+    background: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+strong {
+    font-weight: 700 !important;
+}
+
+* {
+    font: 500 1rem "Quicksand", sans-serif;
+}
+
+a, a:focus, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Arial', sans-serif;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+}
+
+li {
+    margin: 1rem 0; 
+    text-align: center;
+}
+
+li:last-of-type {
+    margin-bottom: 0;
+}
+
+.form_title {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.form_message {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form_message_success {
+    color: #4bb544;
+}
+
+.form_message_error {
+    color: #cc3333;
+}
+
+.form_message_notification {
+    color: grey;
+    font-size: 13px;
+}
+
+.form_input_group {
+    margin-bottom: 1rem;
+}
+
+.form_button {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    background: #07c5a1;
+}
+
+.form_button:hover {
+    background: #09a88b;
+}
+
+svg {
+    opacity: 0;
+}
+
+.success-message {
+    text-align: center;
+    width: 330px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+  
+.message_icon {
+    max-width: 75px;
+}
+  
+.message_title {
+    color: #3dc480;
+    transform: translateY(15px);
+    font-size: 24px;
+    opacity: 0;
+    transition: all 200ms ease;
+    letter-spacing: -.1px;
+}
+  
+.message_content {
+    color: #b8babb;
+    transform: translateY(25px);
+    opacity: 0;
+    transition: all 200ms ease;
+    transition-delay: 50ms;
+}
+  
+.icon-checkmark circle {
+    fill: #3dc480;
+    transform-origin: 50% 50%;
+    transform: scale(0);
+    transition: transform 200ms cubic-bezier(0.22, 0.96, 0.38, 0.98);
+}
+
+.icon-checkmark path {
+    transition: stroke-dashoffset 350ms ease;
+    transition-delay: 100ms;
+}
+
+.form_select_group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 10px 0 3px;
+}
+
+select {
+    padding: 3px;
+    padding: 0.75rem;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+select:focus,
+select:focus-visible,
+select:focus-within {
+    border-color: #07c5a1;
+    background: #ffffff;
+    outline: none;
+}
+
+option:target {
+    color: #eeeeee;
+    background-color: #4bb544;
+}
+
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #555;
+    user-select: none;
+}

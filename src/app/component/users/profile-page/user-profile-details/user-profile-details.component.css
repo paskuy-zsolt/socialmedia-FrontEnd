@@ -1,0 +1,378 @@
+.user_profile {
+    overflow: hidden;
+    background: #f3f4f6;
+    border-radius: 8px;
+    margin: 0 0 32px;
+}
+
+.user_avatar {
+    max-width: 55px;
+    width: 55px;
+    height: 55px;
+    border: 1px solid #e4e4e7;
+    border-radius: 50%;
+}
+
+.user_about {
+    max-width: 420px;
+}
+
+.user_details {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    padding: 64px 32px 72px;
+    background: #fff;
+    position: relative;
+}
+
+.user_category {
+    border-top: 1px solid #bbb;
+    overflow: hidden;
+    padding: 0 32px 32px;
+}
+
+.user_category_title {
+    display: flex;
+    justify-content: center;
+    gap: 42px;
+    line-height: 1;
+    padding: 10px 0 0;
+}
+
+.subcategory {
+    display: inline-flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.subcategory input {
+    display: none;
+}
+
+.subcategory label {
+    position: relative;
+}
+
+.subcategory .icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subcategory span {
+    padding: 0 7px 0 4px;
+}
+
+
+.subcategory input:checked + label::before {
+    content: "";
+    background-color: #bbb;
+    top: -15px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+}
+
+.subcategory label::before {
+    content: "";
+    background-color: #bbb;
+    top: -16px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.content {
+    margin: 32px 0 0;
+}
+
+.posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(calc(30% - 20px), 282px));
+    grid-gap: 20px;
+}
+
+.post_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    border-radius: 8px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: #fff;
+    position: relative;
+}
+
+.post_item .title {
+    font-weight: 600;
+    font-size: 18px;
+    overflow: hidden;
+}
+
+.no-post .post_item {
+    max-width: unset;
+    aspect-ratio: unset;
+}
+
+.no-post .post_item {
+    flex-direction: column;
+    padding: 4rem 0;
+}
+  
+.no-post .post_item .icon {
+    font-size: 4rem;
+}
+  
+.no-post .post_item .no-posts-title {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+  
+.no-posts-text {
+    margin-top: 0.5rem;
+    color: #888;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li.active {
+    padding: 2px 12px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    background-color: #07c5a1;
+}
+
+.pagination li a {
+    cursor: pointer;
+}
+
+.edit-profile,
+.update-profile {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    position: absolute;
+    right: 32px;
+    font-weight: bold;
+    font-size: 1em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.edit-profile {
+    top: 24px;
+    border: 1px solid #010726;
+    background: transparent;
+    color: #010726;
+    transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s;
+}
+
+.edit-profile:hover {
+    background-color: #010726;
+    color: #fff;
+}
+
+.update-profile {
+    color: #fff;
+    background: #07c5a1;
+    bottom: 24px;
+}
+
+.update-profile:hover {
+    background: #09a88b;
+}
+
+.profile-modification .icon {
+    font-size: 14px;
+}
+
+.profile-modification span {
+    font-family: "Arial", sans-serif;
+}
+
+.actions {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions button {
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    cursor: pointer;
+    transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s;
+}
+
+.hide {
+    visibility: hidden;
+    opacity: 0s;
+}
+
+.actions button.update-post:hover {
+    color: #fff;
+    background: #010726;
+}
+
+.actions button.delete-post:hover {
+    color: #fff;
+    background: red;
+}
+
+.update-post-form {
+    margin: 0 32px 32px;
+}
+
+.update-post-form hr {
+    margin: 32px 0;
+}
+
+.update-post-form form {
+    border: 1px solid rgb(228, 228, 231);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    margin: 24px 0;
+    position: relative;
+    width: 100%;
+    padding: 36px 24px;
+}
+
+.update-post-form textarea {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    transition: background-color 0.2s, border-color 0.2s;
+    resize: none;
+}
+
+.update-post-form .form-group {
+    margin: 0 0 20px;
+}
+
+.update-post-form .button-group {
+    display: flex;
+    gap: 16px;    
+}
+
+.update-post-form .button-group button {
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1em;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid;
+    transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s;
+}
+
+.update-post-form .button-group .submit-update {
+    background-color: #07c5a1;
+    color: #fff;
+}
+
+.update-post-form .button-group .submit-update:hover {
+    background: #09a88b;
+}
+
+.update-post-form .button-group .cancel-update:hover {
+    background-color: #010726;
+    color: #fff;
+}
+
+svg {
+    opacity: 0;
+}
+
+.success-message {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    letter-spacing: -.4px;
+    visibility: hidden;
+}
+  
+.message_icon {
+    max-width: 75px;
+}
+  
+.message_title {
+    color: #3dc480;
+    transform: translateY(15px);
+    font-size: 21px;
+    opacity: 0;
+    transition: all 200ms ease;
+}
+  
+.message_content {
+    color: #b8babb;
+    transform: translateY(25px);
+    opacity: 0;
+    transition: all 200ms ease;
+    transition-delay: 50ms;
+}
+  
+.icon-checkmark circle {
+    fill: #3dc480;
+    transform-origin: 50% 50%;
+    transform: scale(0);
+    transition: transform 200ms cubic-bezier(0.22, 0.96, 0.38, 0.98);
+}
+
+.icon-checkmark path {
+    transition: stroke-dashoffset 350ms ease;
+    transition-delay: 100ms;
+}

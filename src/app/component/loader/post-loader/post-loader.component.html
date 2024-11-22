@@ -1,0 +1,22 @@
+<div *ngIf="isLoading$ | async" class="post-loader">
+    <div class="container">
+        <div class="post-skeleton">
+            <div class="user-info">
+                <div class="skeleton avatar"></div>
+                <div class="skeleton username"></div>
+            </div>
+            <div class="skeleton post-content"></div>
+            <div class="skeleton post-line"></div>
+            <div class="skeleton post-line short"></div>
+            <div class="skeleton timestamp"></div>
+            <div class="interaction-buttons">
+                <div class="buttons">
+                    <div class="skeleton button-icon"></div>
+                    <div class="skeleton button-icon"></div>
+                    <div class="skeleton button-icon"></div>
+                </div>
+                <div class="skeleton action-text"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+.container {
+    overflow: hidden;
+    background: #fff;
+    border-radius: 8px;
+    padding: 32px;
+    margin: 0 0 32px;
+    min-height: 240px;
+}
+
+.recover-password,
+.delete-account {
+    padding: 24px;
+    border: 1px solid rgb(228, 228, 231);
+    border-radius: 6px;
+    margin-bottom: 32px;
+}
+
+h2 {
+    margin: 0 0 24px;
+}
+
+p {
+    margin: 0 0 20px;
+}
+
+input {
+    margin-top: 3px;
+}
+
+input:focus,
+input:focus-within,
+input:focus-visible {
+  border-color: #010726;
+}
+
+.form_message_success {
+    color: #3dc480;
+}
+
+.form_message_error {
+    color: #e74c3c;
+}
+
+.form_message_notification {
+    color: grey;
+    font-size: 13px;
+    font-style: italic;
+}
+
+button {    
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1em;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.recover-password button {
+    margin: 20px 0 0;
+    background-color: #010726;
+}
+
+.recover-password button:hover {
+    background-color: #3c3c3c;
+}
+
+.delete-account button {
+    background-color: red;
+}
+
+.delete-account button:hover {
+    background-color: #c70101;
+}
+
+svg {
+    opacity: 0;
+}
+
+.success-message {
+    text-align: center;
+    width: 330px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+  
+.message_icon {
+    max-width: 75px;
+}
+  
+.message_title {
+    color: #3dc480;
+    transform: translateY(15px);
+    font-size: 24px;
+    opacity: 0;
+    transition: all 200ms ease;
+    letter-spacing: -.1px;
+}
+  
+.message_content {
+    color: #b8babb;
+    transform: translateY(25px);
+    opacity: 0;
+    transition: all 200ms ease;
+    transition-delay: 50ms;
+}
+  
+.icon-checkmark circle {
+    fill: #3dc480;
+    transform-origin: 50% 50%;
+    transform: scale(0);
+    transition: transform 200ms cubic-bezier(0.22, 0.96, 0.38, 0.98);
+}
+
+.icon-checkmark path {
+    transition: stroke-dashoffset 350ms ease;
+    transition-delay: 100ms;
+}

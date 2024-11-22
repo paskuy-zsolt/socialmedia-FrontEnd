@@ -1,0 +1,323 @@
+.post {
+    border: 1px solid rgb(228, 228, 231);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    box-sizing: border-box;
+    color: rgb(9, 9, 11);
+    text-size-adjust: 100%;
+    unicode-bidi: isolate;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    background-color: #ffffff;
+    display: inline-block;
+    margin: 0 0 80px;
+    position: relative;
+    width: 100%;
+}
+
+img {
+    height: auto;
+    vertical-align: middle;
+    max-width: 100%;
+    filter: sepia(.3) hue-rotate(-60deg) saturate(.5) opacity(0.8);
+}
+
+.head {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid #f5f5f5;
+    background: linear-gradient(180deg, transparent, rgba(243, 243, 243, 1) 100%);
+    overflow: hidden;
+}
+
+.author_picture {
+    border: 1px solid #e4e4e7;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    overflow: clip;
+    overflow-clip-margin: content-box;
+}
+
+.author_picture img {
+    aspect-ratio: 1 / 1;
+}
+
+.author_name {
+    font-weight: 500;
+    margin-top: 6px;
+    color: #0055a9;
+}
+
+.author_name:hover {
+    color: #010726;
+}
+
+.description {
+    padding: 8px 24px;
+}
+
+.date {
+    font-size: 12px;
+    color: #999999;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #09090b;
+}
+
+.cover_image img {
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+}
+
+.content {
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.about p {
+    display: inline;
+}
+
+.about button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.about button span {
+    color: #07c5a1;
+}
+
+.about button.read-less-button {
+    margin: 0 0 0 auto;
+    display: block;
+}
+
+.specs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.interactions {
+    margin: 6px 0;
+}
+
+.interactions button.action {
+    transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    background-color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.interactions button.action:hover {
+    background-color: #e9e9e9;
+}
+
+.interactions button.action:focus-visible {
+    outline: none;
+}
+
+
+.interactions svg {
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke: currentColor;
+    fill: none;
+}
+
+.stats {
+    display: flex;
+    gap: 6px;
+    color: #6e6e77;
+}
+
+.stats .likes {
+    padding: 16px 0;
+    margin: -16px 0;
+    cursor: context-menu;
+    position: relative;
+}
+
+.comments_content {
+    padding: 16px;
+    border-top: 1px solid #e5e5e5;
+    position: relative;
+}
+
+.comments_heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comments_heading span {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 0 10px;
+    line-height: 2rem;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.icon.close {
+    font-size: 18px;
+    position: absolute;
+    bottom: 81px;
+    right: calc(50% - 18px);
+    z-index: 1;
+    background: #fff;
+}
+
+.show_users_liked {
+    position: absolute;
+    bottom: 50px;
+    left: -20px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
+
+.show_users_liked::after {
+    content: '';
+    position: absolute;
+    left: 36px;
+    bottom: -8px;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px 6px 0 6px;
+    border-color: #000000 transparent transparent transparent;
+    transform: rotate(0deg);
+}
+
+.show_users_liked ul {
+    padding: 8px 16px;
+    font-size: 12px;
+    border: 1px solid;
+    border-radius: 6px;
+    background-color: #d5d5d5;
+    width: max-content;
+}
+
+.show_users_liked ul li {
+    list-style: none;
+    position: relative;
+    margin-left: 8px;
+}
+
+.show_users_liked ul li::before {
+    position: absolute;
+    content: "";
+    top: 7px;
+    left: -10px;
+    height: 4px;
+    width: 4px;
+    border: 1px solid;
+    border-radius: 50%;
+    background-color: #09090b;
+}
+
+.show_users_liked ul li a:hover {
+    color: #010726;
+}
+
+.success-message {
+    background-color: #fff;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;    
+    height: 100%;
+    width: 100%;
+    border-radius: 16px;
+    z-index: 9;
+}
+
+.success-message.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.message_icon {
+    max-width: 75px;
+}
+
+.message_title {
+    color: red;
+    transform: translateY(15px);
+    font-size: 24px;
+    opacity: 0;
+    transition: all 200ms ease;
+    letter-spacing: -.1px;
+}
+
+.message_content {
+    color: #b8babb;
+    transform: translateY(25px);
+    opacity: 0;
+    transition: all 200ms ease;
+    transition-delay: 50ms;
+}
+
+.icon-liked .heart-background {
+    fill: none;
+    stroke: #DDDDDD;
+    stroke-width: 2;
+}
+
+.icon-liked .heart-fill {
+    fill: red;
+    stroke: none;
+    stroke-width: 2;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 200ms cubic-bezier(0.22, 0.96, 0.38, 0.98);
+    transition-delay: 100ms;
+}
+
+.success-message.show .message_title {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.success-message.show .message_content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.success-message.show .icon-liked .heart-fill {
+    transform: scale(1);
+}
+
+.interactions .comments.open {
+    background-color: #e9e9e9;
+}

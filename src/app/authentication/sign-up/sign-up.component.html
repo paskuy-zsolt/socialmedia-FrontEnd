@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="sign_up hide">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+            <div class="form_title">Sign Up</div>
+            <div class="form-control form_input_group">
+                <input type="text" placeholder="Username" id="name" formControlName="name" class="form_input" autofocus required>
+                <div *ngIf="submitted && getUsernameErrorMessage()" class="form_message_error">{{ getUsernameErrorMessage() }}</div>
+            </div>
+            <div class="form-control form_input_group">
+                <input type="email" placeholder="Email" id="email" formControlName="email" class="form_input" autofocus required>
+                <div *ngIf="submitted && getEmailErrorMessage()" class="form_message_error">{{ getEmailErrorMessage() }}</div>
+            </div>
+            <div class="form-control form_input_group">
+                <strong>Enter your birthday below:</strong>
+                <div class="form_select_group">
+                    <select formControlName="year" required>
+                        <option value="" disabled selected>Year</option>
+                        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                    </select>
+                    <select formControlName="month" required>
+                        <option value="" disabled selected>Month</option>
+                        <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+                    </select>
+                    <select formControlName="day" required>
+                        <option value="" disabled selected>Day</option>
+                        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                    </select>
+                </div>
+                <div *ngIf="submitted && getDateErrorMessage()" class="form_message_error">{{ getDateErrorMessage() }}</div>
+            </div>
+            <div class="form-control form_input_group">
+                <div class="input-icon-wrapper">
+                    <input id="password" formControlName="password" [type]="passwordVisible ? 'text' : 'password'" class="form_input" placeholder="Password" autofocus required />
+                    <fa-icon [icon]="passwordVisible ? hidePassword : showPassword" (click)="passwordState()" class="password-icon"></fa-icon>
+                </div>
+                <div *ngIf="submitted && getPasswordErrorMessage()" class="form_message_error">{{ getPasswordErrorMessage() }}</div>
+            </div>
+            <div class="form_input_group">
+                <div class="input-icon-wrapper">
+                    <input id="repeat_password" formControlName="repeat_password" [type]="repeatPasswordVisible ? 'text' : 'password'" class="form_input" placeholder="Confirm password" autofocus required />
+                    <fa-icon [icon]="repeatPasswordVisible ? hidePassword : showPassword" (click)="repeatPasswordState()" class="password-icon"></fa-icon>
+                </div>
+                <div *ngIf="submitted && getRepeatPasswordErrorMessage()" class="form_message_error">{{ getRepeatPasswordErrorMessage() }}</div>
+            </div>
+            <div *ngIf="emailError" class="form_message form_message_error">{{ emailError }}</div>
+            <div *ngIf="messageError" [innerHTML]="messageError" class="form_message form_message_notification"></div>
+            <button class="form_button" type="submit">Sign Up</button>
+            <ul>
+                <li>Already have an account? <a routerLink="/login" class="form_link"><strong>Login</strong></a></li>
+            </ul>
+        </form>
+    </div>
+    <div class="success-message">
+        <svg viewBox="0 0 76 76" class="message_icon icon-checkmark">
+            <circle cx="38" cy="38" r="36"/>
+            <path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.7,40.9l10.9,10.9l28.7-28.7"/>
+        </svg>
+        <div class="message_title">Account Created Successfully</div>
+        <div class="message_content">
+            <p>You will be redirected to <strong>Login Page</strong> <span *ngIf="countdown > 0" class="countdown-timer"> in {{ countdown }}</span>.</p>
+        </div>
+    </div>
+</div>

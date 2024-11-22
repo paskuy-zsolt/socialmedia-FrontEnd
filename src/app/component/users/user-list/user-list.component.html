@@ -1,0 +1,26 @@
+<div class="container">
+    <div *ngIf="loading">
+        <app-users-loader aria-label="Loading users..."></app-users-loader>
+    </div>
+  
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+    <div *ngIf="!loading && filteredUsers.length === 0 && !error" class="no-users">
+        No other users found.
+    </div>
+  
+    <div *ngIf="!loading && filteredUsers.length > 0" class="users">
+        <div class="user" *ngFor="let user of filteredUsers">
+            <a [routerLink]="['/user', ':' + user._id]">
+                <div class="user_box">
+                    <img
+                    class="user_avatar"
+                    [src]="user.avatar || 'https://connect-hub-images.s3.eu-central-1.amazonaws.com/profile/blank_user.jpg'"
+                    alt="avatar"
+                    />
+                    <div class="user_name"><span>{{ user.name }}</span></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,249 @@
+.container {
+    margin: 0 auto;
+    padding: 48px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .2);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    margin: 0 0 24px;
+}
+
+.title .icon.back {
+    font-size: 22px;
+    transform: rotateY(180deg);
+    border: 1px solid #07c5a1;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 200ms cubic-bezier(0.22, 0.96, 0.38, 0.98);
+    cursor: pointer;
+}
+
+.title .icon.back:hover {
+    background: #07c5a1;
+    color: #fff;
+}
+
+.box {
+    padding: 24px;
+    border: 1px solid rgb(228, 228, 231);
+    border-radius: 6px;
+    margin-bottom: 32px;
+}
+
+a {
+    cursor: pointer;
+    color: #07c5a1;
+}
+
+a:hover {
+    color: #09a88b;
+}
+
+h3,
+h4 {
+    margin: 0 0 20px;
+}
+
+ol,
+ul {
+    margin: 0 0 18px 24px;
+}
+
+p {
+    margin: 0 0 18px;
+}
+
+ol ul {
+    margin-bottom: 0;
+}
+
+.big {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.dependencies {
+    list-style: none;
+    margin-left: 6px;
+}
+
+.dependencies li {
+    position: relative;
+}
+
+.dependencies li::before {
+    content: "├──";
+    padding-right: 5px;
+}
+
+.dependencies li:last-of-type::before {
+    content: "└──";
+}
+
+.code {
+    position: relative;
+    margin: 3px 0 18px;
+}
+
+.code button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px;
+    font-size: .75em;
+    height: 100%;
+    outline: none;
+    cursor: pointer;
+    background: #07c5a1;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    max-height: 41px;
+}
+
+.code button:hover {
+    background: #09a88b;
+}
+
+.steps {
+    list-style: circle;
+}
+
+hr {
+    margin: 48px 18px 36px;
+    border: none;
+    border-top: 1px solid #d7d7d7;
+}
+
+.app-structure {
+    margin-left: 18px;
+}
+
+.structure-list {
+    margin: 0 0 18px 36px;
+    list-style: none;
+}
+
+.structure-list li span:first-of-type {
+    display: inline-block;
+    width: 250px;
+}
+
+.structure-list li span:last-of-type {
+    color: rgb(15, 83, 15);
+    font-weight: 400;
+    font-style: italic;
+    font-size: .875em;
+}
+
+.routes li {
+    margin: 0 0 4px 0;
+}
+
+.routes li span {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: #010726;
+    color: #fff;
+    display: inline-block;
+    font-weight: 600;
+    font-size: .75em;
+    margin-right: 3px;
+}
+
+.routes hr {
+    margin: 18px 0 18px -10px;
+}
+
+.routes.backend li span {
+    margin: 0 3px;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    transition: background-color 0.2s, border-color 0.2s;
+    overflow: hidden;
+    resize: none;
+}
+
+textarea:focus, textarea:focus-within, textarea:focus-visible {
+    border-color: #07c5a1;
+    background: #ffffff;
+    outline: none;
+}
+
+svg {
+    opacity: 0;
+}
+
+.success-message {
+    text-align: center;
+    width: 330px;
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    z-index: 1;
+    margin: 1rem;
+    padding: 1.5rem 2rem;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 4px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+  
+.message_icon {
+    max-width: 45px;
+}
+  
+.message_title {
+    color: #3dc480;
+    transform: translateY(10px);
+    font-size: 18px;
+    opacity: 0;
+    transition: all 200ms ease;
+    letter-spacing: -.1px;
+}
+
+.message_content {
+    display: none;
+}
+  
+.icon-checkmark circle {
+    fill: #3dc480;
+    transform-origin: 50% 50%;
+    transform: scale(0);
+    transition: transform 200ms cubic-bezier(0.22, 0.96, 0.38, 0.98);
+}
+
+.icon-checkmark path {
+    transition: stroke-dashoffset 350ms ease;
+    transition-delay: 100ms;
+}

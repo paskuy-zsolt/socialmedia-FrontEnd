@@ -1,0 +1,7 @@
+<header>
+    <div class="welcome_back">
+        <span *ngIf="currentUser">Hi <em><strong>{{ currentUser.name }}</strong></em>,</span>
+        <span class="title">Welcome Back!</span>
+    </div>
+    <button (click)="onLogout()">Logout</button>
+</header>

@@ -1,0 +1,51 @@
+
+
+<div class="sexy-divider">
+    <div class="shadow"></div>
+    <div class="text"><i>Comments</i></div>
+</div>
+
+<div class="comments">
+    <div *ngIf="comments && comments.length > 0; else noComments">
+        <ul *ngIf="!isLoading">
+            <li *ngFor="let comment of comments">
+                <div class="profile">
+                    <img [src]="post.authorPicture || 'https://connect-hub-images.s3.eu-central-1.amazonaws.com/profile/blank_user.jpg'" [alt]="post.authorName" loading="lazy">
+                </div>
+                <div class="user">
+                    <div class="author">
+                        <a [routerLink]="comment.user.userID === user?.userID ? '/profile' : '/user/' + comment.user.userID">
+                            {{ comment.user.userID === user?.userID ? 'You' : comment.user.name }}
+                        </a>
+                        <span>{{ comment.createdAt | timePassed }}</span>
+                    </div>
+                    <div class="content">
+                        <p>{{ comment.content }}</p>
+                        <span *ngIf="comment.user.userID === user?.userID">
+                            <fa-icon (click)="confirmDeleteComment(comment._id)" [icon]="deleteIcon" class="icon delete"></fa-icon>
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Show loading spinner while comments are being loaded -->
+        <div *ngIf="isLoading" class="loading-spinner" role="alert">
+            <app-global-loader aria-label="Loading comments..."></app-global-loader>
+        </div>
+    </div>
+
+    <!-- No comments message -->
+    <ng-template #noComments>
+        <div class="no_comments_message">
+            <p>No comments yet.</p>
+        </div>
+    </ng-template>
+
+    <hr>
+
+    <form (ngSubmit)="addComment()" class="create-comment">
+        <input type="text" [(ngModel)]="comment_value" name="Comment to Add" placeholder="Add a comment..."  />
+        <button type="submit" class="action add_comment">Post</button>
+    </form>
+</div>

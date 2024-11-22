@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="create-post hide">
+      <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
+        <div class="form_title">Create Post</div>
+        
+        <!-- Title input -->
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="text" formControlName="title" class="form-control" placeholder="Post title" />
+          
+          <!-- Show error for title -->
+          <div *ngIf="submitted && createPostForm.get('title')?.invalid" class="form_message_error">
+            {{ getTitleErrorMessage() }}
+          </div>
+        </div>
+  
+        <!-- Content input -->
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea id="content" name="content" formControlName="content" class="form-control" rows="5" placeholder="What's on your mind?"></textarea>
+          
+          <!-- Show error for content -->
+          <div *ngIf="submitted && createPostForm.get('content')?.invalid" class="form_message_error">
+            {{ getContentErrorMessage() }}
+          </div>
+        </div>
+  
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  
+      <div class="close">
+        <fa-icon [icon]="close" (click)="CloseCreatePostSection()" class="icon"></fa-icon>
+      </div>
+    </div>
+  
+    <div class="success-message">
+      <svg viewBox="0 0 76 76" class="message_icon icon-checkmark">
+        <circle cx="38" cy="38" r="36"/>
+        <path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.7,40.9l10.9,10.9l28.7-28.7"/>
+      </svg>
+      <div class="message_title">Post Published Successfully</div>
+      <div class="message_content">
+        <p>This section <strong>will be closed</strong> <span *ngIf="countdown > 0" class="countdown-timer"> in {{ countdown }}</span>.</p>
+      </div>
+    </div>
+  </div>
+  

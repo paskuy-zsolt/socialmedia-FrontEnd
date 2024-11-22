@@ -1,0 +1,33 @@
+.feed {
+    max-width: 960px;
+    margin: 0 auto;
+}
+.no_posts_message {
+    text-align: center;
+    color: #999999;
+}
+
+.all-posts-loaded {
+    background: #fff;
+    margin: 0px -74px -120px;
+    padding: 50px 70px 90px;
+    overflow: hidden;
+}
+
+.all-posts-loaded p {
+    padding: 0 80px;
+    text-align: right;
+    font-style: oblique;
+    font-size: 1.1em;
+}
+
+.add-post-holder {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: rgba(0, 0, 0, .6);
+}

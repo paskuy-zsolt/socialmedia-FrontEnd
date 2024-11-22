@@ -1,0 +1,47 @@
+<div class="sidebar">
+    <div class="logo">
+        <img src="https://connect-hub-images.s3.eu-central-1.amazonaws.com/logo/connect_hub.png" alt="Connect Hub">
+    </div>
+
+    <div class="navbar" [ngClass]="{'scrolled': isScrolled}">
+
+        <!-- Feed Menu -->
+        <div class="feed menu-item" (mouseenter)="isFeedMenuOpen = true" (mouseleave)="isFeedMenuOpen = false">
+            <a routerLink="/feed" class="element_link">
+                <fa-icon [icon]="feed" class="icon"></fa-icon>
+                <span>Feed</span>
+                <fa-icon *ngIf="isCurrentRoute('/feed')" [icon]="isFeedMenuOpen ? chevronUp : chevronDown" class="dropdown-icon"></fa-icon>
+            </a>
+            <div *ngIf="isFeedMenuOpen && isCurrentRoute('/feed')" class="submenu create-post">
+                <a (click)="toggleCreatePost()" class="element_link">
+                    <fa-icon [icon]="createPost" class="icon"></fa-icon>
+                    <span>Create Post</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="users menu-item">
+            <a routerLink="/users" class="element_link">
+                <fa-icon [icon]="users" class="icon"></fa-icon>
+                <span>Users</span>
+            </a>
+        </div>
+
+        <!-- Current User Profile Menu -->
+        <div *ngIf="userId" class="user menu-item">
+            <a routerLink="/profile" class="element_link">
+                <fa-icon [icon]="profile" class="icon"></fa-icon>
+                <span><strong>Profile</strong></span>
+            </a>
+        </div>
+
+        <!-- Current User Profile Settings -->
+        <div class="settings menu-item">
+            <a routerLink="/profile/settings" class="element_link">
+                <fa-icon [icon]="settings" class="icon"></fa-icon>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+</div>

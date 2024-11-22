@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="user-settings hide">
+
+        <h2>User Settings</h2>
+
+        <div class="recover-password">
+            <h3>Reset Password</h3>
+            <p class="subtitle">Send a password reset link to your email.</p>
+            <form [formGroup]="recoverPasswordForm" (submit)="onRecover()">
+                <label for="email">Email</label>
+                <div *ngIf="success" class="form_message form_message_success" [innerHTML]="success"></div>
+                <input type="email" placeholder="Your Email Address" id="email" formControlName="email" class="form_input" required>
+                <div class="form_message form_message_notification">* A mail will be sent on your email address with instructions to reset the password.</div>
+                <div *ngIf="emailError" class="form_message form_message_error">{{ emailError }}</div>
+                <button class="form_button" type="submit">Send Reset Link</button>
+            </form>
+        </div>
+
+        <div class="delete-account">
+            <h3>Delete Account</h3>
+            <p class="subtitle">Permanently delete your account and all associated data.</p>
+            <p>This action cannot be undone. Please be certain.</p>
+            <button (click)="deleteUser()">Delete Account</button>
+        </div>
+    </div>
+
+    <div class="success-message">
+        <svg viewBox="0 0 76 76" class="message_icon icon-checkmark">
+            <circle cx="38" cy="38" r="36"/>
+            <path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.7,40.9l10.9,10.9l28.7-28.7"/>
+        </svg>
+        <div class="message_title">Account Deleted Successfully</div>
+        <div class="message_content">
+            <p>You will be redirected to <strong>Login Page</strong> <span *ngIf="countdown > 0" class="countdown-timer"> in {{ countdown }}</span>.</p>
+        </div>
+    </div>
+</div>

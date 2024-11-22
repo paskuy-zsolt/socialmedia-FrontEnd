@@ -1,0 +1,78 @@
+
+.initial-loader {
+    min-height: 100vh;
+    /* background-color: #1d2630; */
+    background-color: #0e1014;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    opacity: 1;
+    visibility: visible; /* Initially visible */
+    transition: visibility 0s .5s, opacity .5s linear;
+}
+  
+.initial-loader.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.intro-box {
+	position: relative;
+}
+
+.intro-box .intro {
+	color: #fff;
+	font-size: 8em;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	white-space: nowrap
+}
+
+.intro-box .intro:nth-child(1) {
+	color: transparent;
+	/* -webkit-text-stroke: 2px #03a9f4; */
+	-webkit-text-stroke: 2px #004658;
+}
+
+.intro-box .intro:nth-child(2) {
+	/* color: #03a9f4; */
+	color: #004658;
+	animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+	0%,
+	100% {
+		clip-path: polygon(
+			0% 45%,
+			16% 44%,
+			33% 50%,
+			54% 60%,
+			70% 61%,
+			84% 59%,
+			100% 52%,
+			100% 100%,
+			0% 100%
+		);
+	}
+
+	50% {
+		clip-path: polygon(
+			0% 60%,
+			15% 65%,
+			34% 66%,
+			51% 62%,
+			67% 50%,
+			84% 45%,
+			100% 46%,
+			100% 100%,
+			0% 100%
+		);
+	}
+}

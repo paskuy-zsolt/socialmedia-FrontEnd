@@ -1,0 +1,401 @@
+<div class="hide"></div>
+<div class="container app_container">
+    <div class="title">
+        <fa-icon (click)="historyBack()" [icon]="exitIcon" class="icon back"></fa-icon>
+        <h2>Connect-Hub Application Documentation</h2>
+    </div>
+
+    <div class="box">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a (click)="scrollTo('subtitle1')">Introduction</a></li>
+            <li><a (click)="scrollTo('subtitle2')">Technologies</a></li>
+            <li><a (click)="scrollTo('subtitle3')">Installation & Setup</a></li>
+            <li><a (click)="scrollTo('subtitle4')">Frontend Documentation</a>
+                <ul>
+                    <li><a (click)="scrollTo('explanatory1')">Folder Structure</a></li>
+                    <li><a (click)="scrollTo('explanatory2')">Key Features & Components</a></li>
+                    <li><a (click)="scrollTo('explanatory3')">Services</a></li>
+                    <li><a (click)="scrollTo('explanatory4')">Routes & Navigation</a></li>
+                </ul>
+            </li>
+            <li><a (click)="scrollTo('subtitle1')">Backend Documentation</a>
+                <ul>
+                    <li><a (click)="scrollTo('explanatory5')">Folder Structure</a></li>
+                    <li><a (click)="scrollTo('explanatory6')">API Routes</a></li>
+                    <li><a (click)="scrollTo('explanatory7')">Models</a></li>
+                    <li><a (click)="scrollTo('explanatory8')">Authentication & Authorization</a></li>
+                </ul>
+            </li>
+            <li><a (click)="scrollTo('subtitle5')">User Guide</a></li>
+            <li><a (click)="scrollTo('subtitle6')">Testing</a></li>
+            <li><a (click)="scrollTo('subtitle7')">Conclusion</a></li>
+        </ol>
+    </div>
+
+    <div class="box">
+        <h3 id="subtitle1">1. Introduction</h3>
+        <p>This documentation provides a comprehensive guide to understanding the Social Media Application developed using Angular for the frontend and Node.js with Express for the backend. This app is designed to allow users to share posts, comments, like posts and comments, and manage their user profile.</p>
+        <div class="big">Main Features</div>
+        <ul>
+            <li>User Authentication & Authorization: Users can register, login, and securely manage their sessions with JWT tokens.</li>
+            <li>Profile Management: Users can update their profile information and manage their posts and comments.</li>
+            <li>Post Creation & Interaction: Users can create posts, comment and like on them.</li>
+            <li>Post & Comment System: Users can edit and delete their own comments and posts.</li>
+        </ul>
+    </div>
+
+    <div class="box">
+        <h3 id="subtitle2">2. Technologies</h3>
+        <p>This application uses the following technologies:</p>
+        <div class="big">Frontend:</div>
+        <ul>
+            <li>Angular 17: A modern framework for building dynamic and responsive web applications.</li>
+            <li>FontAwesome: For icons.</li>
+            <li>Vercel: For deploying</li>
+        </ul>
+        <div class="big">Backend:</div>
+        <ul>
+            <li>Node.js: JavaScript runtime for the backend.</li>
+            <li>Express: Web framework for Node.js.</li>
+            <li>MongoDB: NoSQL database for storing user data, posts, and comments.</li>
+            <li>JWT: JSON Web Tokens for secure authentication.</li>
+            <li>Bcryptjs: For hashing user passwords.</li>
+            <li>AWS: S3 bucket for storing images, EC2 instance for deploying the code to server</li>
+        </ul>
+    </div>
+
+    <div class="box">
+        <h3 id="subtitle3">3. Installation & Setup</h3>
+        <div class="big">Frontend Setup:</div>
+        <ul class="steps">
+            <li>Clone the repository:
+                <div class="code">
+                    <input type="text" value="git@github.com:paskuy-zsolt/socialmedia-FrontEnd.git" disabled>
+                    <button (click)="copyText($event)">Copy text</button>
+                </div>
+            </li>
+            <li>Navigate to the frontend directory:
+                <div class="code">
+                    <input type="text" value="cd socialmedia-FrontEnd" disabled>
+                    <button (click)="copyText($event)">Copy text</button>
+                </div>
+            </li>
+            <li>Install dependencies: (<strong>npm install</strong>)
+                <ul class="dependencies">                
+                    <li>&#64;angular-devkit/build-angular&#64;17.2.1</li>
+                    <li>&#64;angular/animations&#64;17.2.2</li>
+                    <li>&#64;angular/cli&#64;17.2.1</li>
+                    <li>&#64;angular/common&#64;17.2.2</li>
+                    <li>&#64;angular/compiler-cli&#64;17.2.2</li>
+                    <li>&#64;angular/compiler&#64;17.2.2</li>
+                    <li>&#64;angular/core&#64;17.2.2</li>
+                    <li>&#64;angular/forms&#64;17.2.2</li>
+                    <li>&#64;angular/platform-browser-dynamic&#64;17.2.2</li>
+                    <li>&#64;angular/platform-browser&#64;17.2.2</li>
+                    <li>&#64;angular/router&#64;17.2.2</li>
+                    <li>&#64;fortawesome/angular-fontawesome&#64;0.14.1</li>
+                    <li>&#64;fortawesome/fontawesome-svg-core&#64;6.5.1</li>
+                    <li>&#64;fortawesome/free-regular-svg-icons&#64;6.5.1</li>
+                    <li>&#64;fortawesome/free-solid-svg-icons&#64;6.5.1</li>
+                    <li>&#64;types/jasmine&#64;5.1.4</li>
+                    <li>jasmine-core&#64;5.1.2</li>
+                    <li>karma-chrome-launcher&#64;3.2.0</li>
+                    <li>karma-coverage&#64;2.2.1</li>
+                    <li>karma-jasmine-html-reporter&#64;2.1.0</li>
+                    <li>karma-jasmine&#64;5.1.0</li>
+                    <li>karma&#64;6.4.3</li>
+                    <li>rxjs&#64;7.8.1</li>
+                    <li>tslib&#64;2.6.2</li>
+                    <li>typescript&#64;5.3.3</li>
+                    <li>zone.js&#64;0.14.4</li>
+                </ul>
+            </li>
+            <li>Start the Angular development server:
+                <div class="code">
+                    <input type="text" value="ng serve" disabled>
+                    <button (click)="copyText($event)">Copy text</button>
+                </div>
+            </li>
+        </ul>
+
+        <hr>
+
+        <div class="big">Backend Setup:</div>
+        <ul class="steps">
+            <li>Clone the repository:
+                <div class="code">
+                    <input type="text" value="git@github.com:paskuy-zsolt/socialmedia-BackEnd.git" disabled>
+                    <button (click)="copyText($event)">Copy text</button>
+                </div>
+            </li>
+            <li>Navigate to the backend directory:
+                <div class="code">
+                    <input type="text" value="cd socialmedia-BackEnd" disabled>
+                    <button (click)="copyText($event)">Copy text</button>
+                </div>
+            </li>
+            <li>Install dependencies: (<strong>npm install</strong>)
+                <ul class="dependencies">
+                    <li>axios&#64;1.6.7</li>
+                    <li>bad-words&#64;3.0.4</li>
+                    <li>bcrypt&#64;5.1.1</li>
+                    <li>cors&#64;2.8.5</li>
+                    <li>dotenv&#64;16.4.1</li>
+                    <li>express-session&#64;1.18.0</li>
+                    <li>express&#64;4.18.2</li>
+                    <li>jsonwebtoken&#64;9.0.2</li>
+                    <li>mongodb&#64;6.3.0</li>
+                    <li>mongoose&#64;8.1.1</li>
+                    <li>node-cron&#64;3.0.3</li>
+                    <li>nodemailer&#64;6.9.9</li>
+                    <li>nodemon&#64;3.0.3</li>
+                    <li>xss&#64;1.0.14</li>
+                </ul>
+            </li>
+            <li>Create a .env file with the necessary environment variables:
+                <div class="code">
+                    <input type="text" value="SECRET_KEY=your-secret-key" disabled>
+                    <button (click)="copyText($event)">Copy text</button>
+                </div>
+            </li>
+            <li>Start the backend server:
+                <div class="code">
+                    <input type="text" value="npm start" disabled>
+                    <button (click)="copyText($event)">Copy text</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="box">
+        <h3 id="subtitle4">4. Frontend Documentation</h3>
+        <h4 id="explanatory1">📂 Folder Structure</h4>
+        <div>src/</div>
+        <div class="app-structure">app/</div>
+        <div class="structure-list">
+            <li>
+                <span>components/</span>
+                <span># Reusable UI components (e.g., post, comment, sidebar)</span>
+            </li>
+            <li>
+                <span>guard/</span>
+                <span># Route guards that manage access control</span>
+            </li>
+            <li>
+                <span>interceptor/</span>
+                <span># Modifying HTTP requests and responses</span>
+            </li>
+            <li>
+                <span>modules/</span>
+                <span># TypeScript models for data</span>
+            </li>
+            <li>
+                <span>pipe/</span>
+                <span># Used for transforming data in templates</span>
+            </li>
+            <li>
+                <span>services/</span>
+                <span># API calls and services</span>
+            </li>
+            <li>
+                <span>app.config.ts</span>
+                <span># Configuration file for global settings</span>
+            </li>
+            <li>
+                <span>app.routes.ts</span>
+                <span># Handles all routing logic</span>
+            </li>
+            <li>
+                <span>app.component.ts</span>
+                <span># The root component of the application</span>
+            </li>
+        </div>
+
+        <h4 id="explanatory2">🔑 Key Features & Components</h4>
+        <p><strong>Post Component</strong></p>
+        <ul>
+            <li>Displays individual posts.</li>
+            <li>Handles likes, comments, and routing to user profiles.</li>
+            <li>Inputs: Post data (post).</li>
+            <li>Outputs: Handles user interactions like liking a post.</li>
+        </ul>
+        <p><strong>Comment Component</strong></p>
+        <ul>
+            <li>Displays comments on posts.</li>
+            <li>Allows users to add and delete their own comments.</li>
+            <li>Inputs: Comment data (comments), post details (post).</li>
+            <li>Outputs: Handles adding new comments and deleting them.</li>
+        </ul>
+        <p><strong>User Component</strong></p>
+        <ul>
+            <li>Display the user posts.</li>
+            <li>Allow to see account information just if 'Your Profile'</li>
+        </ul>
+
+        
+        <h4 id="explanatory3">🛠️ Services</h4>
+        <p><strong>UserService</strong></p>
+        <p>Handles API calls related to user authentication and profile management.</p>
+        <p><strong>PostService</strong></p>
+        <p>Handles API calls for posts, including creating, liking, and retrieving posts.</p>
+        <p><strong>CommentService</strong></p>
+        <p>Handles API calls for adding, deleting, and fetching comments.</p>
+
+        <h4 id="explanatory4">🚦 Routes & Navigation</h4>
+        <ul class="routes">
+            <li><span>/login</span>: User will authenticate with their credentials (email/password).</li>
+            <li><span>/sign-up</span>: Users who will create account in our page need to be more than 16 years old.</li>
+            <li><span>/reset-password</span>: We are request your email to send a reset password URL.</li>
+            <li><span>/reset-password/:token</span>: Unique link where user will enter his new password.</li>
+            <li><span>/expired-session</span>: Inform the user that his session to this page has expired. Need to login again.</li>
+            <li><span>/feed</span>: Current feed with all posts posted.</li>
+            <li><span>/post/:id</span>: Display a specific post.</li>
+            <li><span>/users</span>: Displays all users.</li>
+            <li><span>/user/:id</span>: Displays a specific user's profile.</li>
+            <li><span>/profile</span>: Displays the current user's profile.</li>
+            <li><span>/profile/settings</span>: Allows the user to change their security settings.</li>
+            <li><span>/policy-notice</span>: Our policy note.</li>
+        </ul>
+    </div>
+
+    <div class="box">
+        <h3 id="subtitle5">5. Backend Documentation</h3>
+        <h4 id="explanatory5">📂 Folder Structure</h4>
+        <div class="app-structure">backend/</div>
+        <div class="structure-list">
+            <li>
+                <span>controller/</span>
+                <span># Logic for handling API requests.</span>
+            </li>
+            <li>
+                <span>cron/</span>
+                <span># Repeating jobs to clean up unused/expired/invalid data.</span>
+            </li>
+            <li>
+                <span>middleware/</span>
+                <span># Header authentication and validations.</span>
+            </li>
+            <li>
+                <span>model/</span>
+                <span># Mongoose models for MongoDB schema.</span>
+            </li>
+            <li>
+                <span>routes/</span>
+                <span># Express route definitions.</span>
+            </li>
+            <li>
+                <span>utils/</span>
+                <span># Responses and different services.</span>
+            </li>
+        </div>
+
+        <h4 id="explanatory6">🌐 API Routes</h4>
+        <ul class="routes backend">
+            <li><strong>GET :</strong> <span>/users</span>- Retrieves a list of all users.</li>
+            <li><strong>GET :</strong> <span>/user/:id</span>- Retrieves details of the user.</li>
+            <li><strong>GET :</strong> <span>/feed</span>- Retrieves a feed of 10 posts per page, sorted by time.</li>
+            <li><strong>GET :</strong> <span>/post/:postId</span>- Retrieves details of the specific post.</li>
+            <li><strong>GET :</strong> <span>/post/user/:userId</span>- Retrieves all posts created by the user.</li>
+            <li><strong>GET :</strong> <span>/post/:postId/comments</span>- Retrieves all comments for the post with the specified id.</li>
+            <hr>
+            <li><strong>POST :</strong> <span>/sign-up</span>- Registers a new user.</li>
+            <li><strong>POST :</strong> <span>/login</span>- Authenticates a user and returns a JWT token.</li>
+            <li><strong>POST :</strong> <span>/user/logout</span>- Logs out the user by invalidating and deleting the JWT token and clear user local storage.</li>
+            <li><strong>POST :</strong> <span>/reset-password</span>- Sends a password reset link email to the user's registered email.</li>
+            <li><strong>POST :</strong> <span>/reset-password/:token</span>- Resets the user's password using a token sent to their email.</li>
+            <li><strong>POST :</strong> <span>/post/create</span>- Creates a new post.</li>
+            <li><strong>POST :</strong> <span>/post/:postId/like</span>- Likes the post. Adds the user's ID to the likes array and increments the like count.</li>
+            <li><strong>POST :</strong> <span>/post/:postId/comment/add</span>- Adds a new comment to the post.</li>
+            <hr>
+            <li><strong>PUT :</strong> <span>/post/:postId</span>- Updates the post.</li>
+            <hr>
+            <li><strong>DELETE :</strong> <span>/user/:id</span>- Deletes the user.</li>
+            <li><strong>DELETE :</strong> <span>/post/:postId</span>- Deletes the post.</li>
+            <li><strong>DELETE :</strong> <span>/post/:postId/comment/:commentId</span>- Deletes the comment from the post.</li>
+        </ul>
+
+        <h4 id="explanatory7">🏗️ Models</h4>
+        <strong>User Model:</strong>
+        <div class="code">
+            <textarea rows="5" disabled>
+{
+    "name": "User",
+    "email": "your@email.com",
+    "password": "$2a$10$uxqGzjm3SyZebkmeqbpc.uRRSNMdVtWt2/FEhzM3RISeFkcAsAlqi",
+}
+            </textarea>
+            <button (click)="copyText($event)">Copy text</button>
+        </div>
+
+        <strong>Post Model:</strong>
+        <div class="code">
+            <textarea rows="9" disabled>
+{
+    "id": "58b2gd1a4f563f1b3g5b12398",
+    "title": "Sample Post",
+    "content": "This is the content of the post.",
+    "authorId": "63a2fc9a7f28d67d3e4b1234",
+    "likesCount": 10,
+    "likes": ["63a2fc9a7f28d67d3e4b1234", "63a2fc9a7f28d67d3e4b5678"],
+    "comments": ["63b3ad8c7e38d47d5e7a1234"],
+    "createdAt": "2024-11-21T10:00:00.000Z"
+}
+            </textarea>
+            <button (click)="copyText($event)">Copy text</button>
+        </div>
+
+        <strong>Comment Model:</strong>
+        <div class="code">
+            <textarea rows="6" disabled>
+{
+    "user": "63a2fc9a7f28d67d3e4b1234",
+    "content": "This is the content of the comment.",
+    "post": "58b2gd1a4f563f1b3g5b12398",
+    "createdAt": "2024-11-21T10:00:00.000Z"
+}
+            </textarea>
+            <button (click)="copyText($event)">Copy text</button>
+        </div>
+
+        <h4 id="explanatory8">🔒 Authentication & Authorization</h4>
+        <p>JWT Authentication: When a user logs in, a JWT token is generated and sent back to the client. The token is stored in the browser's local storage and included in the Authorization header for subsequent requests.</p>
+        <p>Protect Routes: Routes that handle post or comment related actions and such as DELETE /user/:id are protected by JWT authentication middleware to ensure only the authenticated user can navigate on the page.</p>
+    </div>
+
+    <div class="box">
+        <h3 id="subtitle6">6. User Guide</h3>
+        <p><strong>Registering an Account</strong> <br>To register, go to the Sign Up page and fill in your name, email, and password. Also you must pe over 16.</p>
+        <p><strong>Logging In</strong> <br>After registering, log in using your email and password to access the app's features.</p>
+        <!-- <p><strong>Updating Profile</strong> <br>Go to Profile Settings to update your name, email, and avatar.</p> -->
+        <p><strong>Creating Posts</strong> <br>Go to the Feed page and click the "Create Post" button to share a new post.</p>
+        <p><strong>Deleting Post</strong> <br>Go to the Profile page and from there you can delete any post you want.</p>
+        <p><strong>Like the Post</strong> <br>Under each post, there is a button how you can like the post. By clicking on the red heart you will unlike the post.</p>
+        <p><strong>Commenting on Posts</strong> <br>Under each post, there is a "Comment" section where you can share your thoughts. You can also delete your own comments.</p>
+    </div>
+    
+    <div class="box">
+        <h3 id="subtitle7">7. Testing</h3>
+        <div class="big">Frontend</div>
+        <p>Currently there are no Unit Tests used, besides the specs.ts files that come integrated with angular.</p>
+        <div class="big">Backend</div>
+        <ul>
+            <li><strong>Unit Tests</strong>: API routes and controller logic are tested using Mocha and Chai.</li>
+            <li><strong>Integration Tests</strong>: Tests ensure that the application correctly interacts with the database and external services.</li>
+        </ul>
+    </div>
+    
+    <div class="box">
+        <h3 id="subtitle8">8. Conclusion</h3>
+        <p>This social media application provides an easy-to-use platform for users to interact, post content, and manage their profiles. With JWT authentication, a flexible post/comment system, and a user-friendly interface, it offers all the essential features for a social platform.</p>
+    </div>
+</div>
+
+<div class="success-message">
+    <svg viewBox="0 0 76 76" class="message_icon icon-checkmark">
+        <circle cx="38" cy="38" r="36"/>
+        <path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.7,40.9l10.9,10.9l28.7-28.7"/>
+    </svg>
+    <div class="message_title">Text copied to clipboard!</div>
+    <div class="message_content"></div>
+</div>

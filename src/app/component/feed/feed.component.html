@@ -1,0 +1,29 @@
+<div class="add-post-holder" *ngIf="isCreatePostVisible">
+    <app-create-post></app-create-post>
+</div>
+
+<div class="feed">
+    <div *ngIf="posts; else noPosts">
+
+        <div *ngFor="let post of posts">
+            <app-post [post]="post"></app-post>
+        </div>
+
+        <!-- Show loading spinner while posts are being loaded -->
+        <div *ngIf="loading && !allPostsLoaded" role="alert">
+            <app-post-loader aria-label="Loading posts..."></app-post-loader>
+        </div>
+        
+        <!-- Message for when all posts are loaded -->
+        <div *ngIf="!loading && allPostsLoaded" class="all-posts-loaded">
+            <p>All posts have been loaded.</p>
+        </div>
+    </div>
+
+    <!-- No posts message -->
+    <ng-template #noPosts>
+        <div class="no_posts_message">
+            <p>No posts to display.</p>
+        </div>
+    </ng-template>
+</div>

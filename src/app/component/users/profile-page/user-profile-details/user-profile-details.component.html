@@ -1,0 +1,162 @@
+<div class="user_profile">
+    
+    <div *ngIf="!userLoaded" role="alert">
+        <app-user-profile-loader aria-label="Loading user details..."></app-user-profile-loader>
+    </div>
+
+    <div *ngIf="user" class="user_details">
+
+        <img 
+            class="user_avatar" 
+            [src]="user.avatar || fallbackImage" 
+            alt="{{ user.name ? user.name + '\'s avatar' : 'User avatar' }}" 
+        >
+        
+        <div class="user_about">
+            <div *ngIf="user.name" class="user_name">
+                <div *ngIf="isCurrentUserProfile">
+                    <h2>Your Profile</h2>
+                </div>
+                <div *ngIf="!isCurrentUserProfile">
+                    <h2>{{ user.name }}</h2>
+                </div>
+            </div>
+
+            <!-- Show "Personal Profile Details" only if viewing own profile -->
+            <div *ngIf="isCurrentUserProfile">
+                <div *ngIf="user.email" class="user_email">E-mail: {{ user.email }}</div>
+                <div *ngIf="user.phone" class="user_phone">Phone: {{ user.phone }}</div>
+            </div>
+            
+            <div *ngIf="user.username" class="user_username">Username: {{ user.username }}</div>
+            <div *ngIf="user.description" class="user_description">About: {{ user.description }}</div>
+        </div>
+
+        <!-- Show "Update Profile" button only if viewing own profile -->
+        <div *ngIf="isCurrentUserProfile" class="profile-modification">
+            <a [routerLink]="['/profile/update']" class="edit-profile">
+                <fa-icon [icon]="icon_edit" class="icon"></fa-icon>
+                <span>Update Profile</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="user_category">
+        <div class="user_category_title">
+            <div class="posts_category subcategory">
+                <input type="radio" id="posts" name="category" value="posts" [(ngModel)]="selectedCategory">
+                <label for="posts" class="subcategory">
+                    <fa-icon [icon]="icon_posts" class="icon" for="posts"></fa-icon>
+                    <span>Posts</span>
+                </label>
+            </div>
+            
+            <div class="saved_category subcategory">
+                <input type="radio" id="saved" name="category" value="saved" [(ngModel)]="selectedCategory">
+                <label for="saved" class="subcategory">
+                    <fa-icon [icon]="icon_saved" class="icon"></fa-icon>
+                    <span>Saved</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div *ngIf="selectedCategory === 'posts'" class="post">
+                
+                <div *ngIf="postsLoaded">
+
+                    <div *ngIf="posts.length > 0" class="posts">
+                        
+                        <div *ngFor="let post of posts | slice:(currentPage - 1) * postsPerPage : currentPage * postsPerPage" class="post_item">
+                          
+                            <!-- Post Container -->
+                            <div [id]="post._id" class="post-container">
+                                
+                                <!-- Post Content -->
+                                <a [routerLink]="['/post', post._id]" class="title">{{ post.title }}</a>
+                                
+                                <div class="actions">
+                                    <button *ngIf="isCurrentUserProfile" (click)="openUpdatePost(post); scrollTo('update-post')" class="update-post">
+                                        <fa-icon [icon]="icon_edit" class="icon"></fa-icon>
+                                    </button>
+                        
+                                    <!-- Show delete button if it's the current user's profile -->
+                                    <button *ngIf="isCurrentUserProfile" (click)="deletePost(post._id)" class="delete-post">
+                                        <fa-icon [icon]="icon_trash" class="icon"></fa-icon>
+                                    </button>
+                                </div>
+                                
+                                <!-- Success Message -->
+                                <div *ngIf="successPostIds.has(post._id)" class="success-message">
+                                    <svg viewBox="0 0 76 76" class="message_icon icon-checkmark">
+                                        <circle cx="38" cy="38" r="36" />
+                                        <path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.7,40.9l10.9,10.9l28.7-28.7" />
+                                    </svg>
+                                    <div class="message_title">Post Deleted Successfully</div>
+                                    <div class="message_content">
+                                        <p>This post will be deleted 
+                                            <span *ngIf="countdowns.get(post._id) && countdowns.get(post._id)! > 0" class="countdown-timer">
+                                                in {{ countdowns.get(post._id) }}
+                                            </span>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="posts.length === 0">
+                        <div class="no-post">
+                            <div class="post_item">
+                                <div class="card">
+                                    <div class="icon">
+                                        <fa-icon [icon]="icon_image" class="icon" for="posts"></fa-icon>
+                                    </div>
+                                    <h3 class="no-posts-title">No posts yet</h3>
+                                    <p class="no-posts-text">When John creates posts, they'll appear here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination controls -->
+                    <ul *ngIf="getPagesArray().length > 1" class="pagination">
+                        <li *ngFor="let page of getPagesArray()" [class.active]="page === currentPage">
+                          <a (click)="onPageChange(page)">{{ page }}</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div *ngIf="!postsLoaded">
+                    <app-global-loader></app-global-loader>
+                </div>
+
+            </div>
+
+            <div *ngIf="selectedCategory === 'saved'">
+                <p>Content for saved items goes here.</p>
+                <!-- Add saved items content here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Post Form -->
+    <div *ngIf="selectedPost" class="update-post-form" id="update-post" #updatePostSection>
+        <h2>Update Post</h2>
+        <form (ngSubmit)="submitUpdatedPost()">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input id="title" [(ngModel)]="selectedPost.title" name="title" required />
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" [(ngModel)]="selectedPost.content" name="content" rows="12" required></textarea>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="submit-update">Save Changes</button>
+                <button type="button" class="cancel-update" (click)="cancelUpdate()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="title">Login</div>
+    <div class="content">
+        <img src="https://connect-hub-images.s3.eu-central-1.amazonaws.com/logo/connect_hub.png" alt="Connect Hub">
+        <div class="login">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <div class="form-control form_input_group">
+                    <input type="email" placeholder="Email" id="email" formControlName="email" class="form_input" autofocus required>
+                    <div *ngIf="submitted && getEmailErrorMessage()" class="form_message_error">{{ getEmailErrorMessage() }}</div>
+                </div>
+                <div class="form-control form_input_group">
+                    <div class="input-icon-wrapper">
+                        <input id="password" formControlName="password" [type]="passwordVisible ? 'text' : 'password'" class="form_input"  placeholder="Password" required />
+                        <fa-icon [icon]="passwordVisible ? hidePassword : showPassword" (click)="passwordState()" class="password-icon"></fa-icon>
+                    </div>
+                    <div *ngIf="submitted && getPasswordErrorMessage()" class="form_message_error">{{ getPasswordErrorMessage() }}</div>
+                    <div *ngIf="passwordError" class="form_message form_message_error">{{ passwordError }}</div>
+                </div>
+                <div *ngIf="emailError" class="form_message form_message_error">{{ emailError }}</div>
+                <div *ngIf="messageError" [innerHTML]="messageError" class="form_message form_message_notification"></div>
+                <button class="form_button" type="submit">Login</button>
+            </form>
+            <ul>
+                <li>Forgot your password? <a routerLink="/reset-password" class="form_link"><strong>Reset</strong></a></li>
+                <li>Don't have an account? <a routerLink="/sign-up" class="form_link"><strong>Create account</strong></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

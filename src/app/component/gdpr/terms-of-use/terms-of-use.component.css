@@ -1,0 +1,75 @@
+.container {
+    margin: 0 auto;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    padding: 70px;
+    font-size: 14px;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 14px;
+}
+
+.date {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 36px;
+}
+
+ul {
+    padding: 0 0 0 40px;
+    margin: 0;
+}
+
+li {
+    margin: 16px 0;
+}
+
+p {
+    margin: 0 0 16px;
+}
+
+.big {
+    color: #000;
+    font-size: 17px;
+}
+
+.category {
+    margin: 32px 0 16px;
+}
+
+.subtitle {
+    margin: 0 0 16px;
+    color: #000;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: #07c5a1;
+}
+
+ol {
+    padding-left: 24px;
+}
+
+ol li {
+    margin: 0;
+    padding-left: 10px;
+}
+
+.highlight {
+    background-color: yellow;
+    transition: all 1s ease;
+}
+
+.highlight-remove {
+    background-color: transparent;
+}

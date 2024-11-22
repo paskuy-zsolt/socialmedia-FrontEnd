@@ -1,0 +1,109 @@
+<div *ngIf="post" class="post">
+    <div class="head author_profile">
+        <div class="author_picture">
+            <img [src]="post.authorPicture || 'https://connect-hub-images.s3.eu-central-1.amazonaws.com/profile/blank_user.jpg'" [alt]="post.authorName" loading="lazy">
+        </div>
+        <div class="author_name">
+            <a [routerLink]="post.authorId === currentUser?.userID ? '/profile' : '/user/' + post.authorId">
+                {{ post.authorId === currentUser?.userID ? 'You' : post.authorName }}
+            </a>
+        </div>
+          
+    </div>
+
+    <div class="description">
+        <div class="title">
+            <a [routerLink]="['/post', ':' + post._id]">{{ post.title }}</a>
+        </div>
+        <div class="date">
+            <em *ngIf="post.createdAt">Posted {{ post.createdAt | timePassed }}</em>
+        </div>
+    </div>
+
+    <div *ngIf="post.attachments && post.attachments.length > 0">
+        <div class="cover_image">
+            <img [src]="post.attachments" [alt]="post.title" loading="lazy">
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="about">
+            <!-- Conditionally show the full content or the excerpt -->
+            <p *ngIf="showFullContent; else excerptContent">{{ post.content }}</p>
+            <ng-template #excerptContent>
+                <div *ngIf="post?.content">
+                    {{ getExcerpt(post.content) }}
+                <button *ngIf="post.content.length > 350" (click)="toggleContentVisibility()" class="read-more-button">...<span><em>Show More</em></span>.</button>
+            </div>
+            </ng-template>
+        
+            <!-- Toggle button to switch between "Read More" and "Read Less" -->
+            <button *ngIf="showFullContent" (click)="toggleContentVisibility()" class="read-less-button"><span><em>Show Less</em></span></button>
+        </div>
+    </div>
+
+    <div class="specs">
+
+        <div class="interactions">
+
+            <button (click)="toggleLike()" class="action like_button" aria-label="Like">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" [style.fill]="isLiked ? '#FF0000' : 'none'" [style.color]="isLiked ? '#FF0000' : ''">
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+            </button>
+
+            <button (click)="toggleComments()" class="action comments_button" aria-label="Comment" [ngClass]="getCommentsButtonClass()" >
+                <svg data-id="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
+                </svg>
+            </button>
+
+            <button class="action comments_button" aria-label="Save">
+                <svg data-id="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="stats">
+            <div (mouseenter)="toggleUsersLiked(true)" (mouseleave)="toggleUsersLiked(false)" class="likes">
+                <span>
+                    {{ post.likesCount }} Likes
+                </span>
+                
+                <div *ngIf="showUsersLiked && usersLiked.length > 0" class="show_users_liked">
+                    <ul>
+                        <p><strong>Liked by:</strong></p>
+                        <li *ngFor="let user of usersLiked">
+                            <a [routerLink]="user.userID === currentUser?.userID ? '/profile' : '/user/' + user.userID">
+                                <em>{{ user.userID === currentUser?.userID ? 'You' : (user.name || user.email) }}</em>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="spacer">•</div>
+            <div *ngIf="post.comments" class="comment">
+                <span>{{ post.comments.length }} Comments</span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showComments" class="comments_content">
+        <fa-icon *ngIf="showComments" (click)="toggleComments()" [icon]="closeIcon" class="icon close"></fa-icon>
+        <app-comments [post]="post" [postId]="post._id" [user]="currentUser!" [comments]="post.comments"></app-comments>
+        
+    </div>
+                    
+    <div class="success-message"  [ngClass]="{'show': showLikedMessage && isLiked}">
+        <svg viewBox="0 0 64 64" class="message_icon icon-liked">
+            <path class="heart-background" d="M 28 54 C 13.5 41.6 4 32.28 4 21.6 C 4 14.39 9.39 9 16.6 9 c 4.36 0 8.56 2.12 11.4 5.46 C 31.84 11.12 36.04 9 40.4 9 C 47.61 9 53 14.39 53 21.6 c 0 10.68 -9.5 20 -25 32.4 z"/>
+            <path class="heart-fill" d="M 28 54 C 13.5 41.6 4 32.28 4 21.6 C 4 14.39 9.39 9 16.6 9 c 4.36 0 8.56 2.12 11.4 5.46 C 31.84 11.12 36.04 9 40.4 9 C 47.61 9 53 14.39 53 21.6 c 0 10.68 -9.5 20 -25 32.4 z"/>
+        </svg>
+        <div class="message_title">Post Liked Successfully</div>
+        <div class="message_content">
+            <p>You just liked <strong>{{post.authorName}}</strong>'s post titled - <em>"{{ post.title }}"</em>.</p>
+        </div>
+    </div>
+</div>
