@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User, UserResponse } from '../../modules/user/user.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,9 @@ import { User, UserResponse } from '../../modules/user/user.model';
 
 export class UserService {
 
-  private apiUrl = 'https://connect-hub.eu';
+  private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   getUsers(): Observable<UserResponse> {
     return this.http.get<UserResponse>(`${this.apiUrl}/users`);

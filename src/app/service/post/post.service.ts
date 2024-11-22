@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../../modules/post/post.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  private apiUrl = 'https://connect-hub.eu';
+  private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   // Fetch a single post by ID
   getPost(postId: string): Observable<{ post: Post }> {
