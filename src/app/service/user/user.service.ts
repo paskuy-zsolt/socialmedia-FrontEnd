@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User, UserResponse } from '../../modules/user/user.model';
-import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { environment } from '../../../environments/environment';
 
 export class UserService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = "https://connect-hub.eu/";
 
   private http = inject(HttpClient);
 
@@ -38,7 +37,6 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/user/${userId}`);
   }
 
-  // Recover password by sending reset link
   recoverPassword(email: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/reset-password`, { email });
   }

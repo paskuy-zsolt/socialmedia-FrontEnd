@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostsResponse } from '../../modules/post/post.model';
-import { environment } from '../../../environments/environment';
 
 
 @Injectable({
@@ -11,7 +10,7 @@ import { environment } from '../../../environments/environment';
 
 export class FeedService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = "https://connect-hub.eu/";
 
   private http = inject(HttpClient);
   

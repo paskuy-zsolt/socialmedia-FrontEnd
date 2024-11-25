@@ -2,14 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../../modules/post/post.model';
-import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = "https://connect-hub.eu/";
 
   private http = inject(HttpClient);
 
