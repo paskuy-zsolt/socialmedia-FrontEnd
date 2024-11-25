@@ -9,7 +9,7 @@ import { User, UserResponse } from '../../modules/user/user.model';
 
 export class UserService {
 
-  private apiUrl = "https://connect-hub.eu";
+  private apiUrl = "http://connect-hub.eu";
 
   private http = inject(HttpClient);
 
