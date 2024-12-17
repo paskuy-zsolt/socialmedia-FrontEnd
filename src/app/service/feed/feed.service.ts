@@ -10,7 +10,7 @@ import { PostsResponse } from '../../modules/post/post.model';
 
 export class FeedService {
 
-  private apiUrl = "http://connect-hub.eu";
+  private apiUrl = "https://connect-hub.eu";
 
   private http = inject(HttpClient);
   
