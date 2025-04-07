@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { FeedComponent } from './component/feed/feed.component';
@@ -13,7 +13,6 @@ import { PolicyNoticeComponent } from './component/gdpr/policy-notice/policy-not
 import { UserSettingsComponent } from './component/users/profile-page/user-settings/user-settings.component';
 import { PostComponent } from './component/post/post.component';
 import { DocumentationComponent } from './component/documentation/documentation.component';
-import { NgModule } from '@angular/core';
 import { UserProfileUpdateComponent } from './component/users/profile-page/user-profile-update/user-profile-update.component';
 import { TermsOfUseComponent } from './component/gdpr/terms-of-use/terms-of-use.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';

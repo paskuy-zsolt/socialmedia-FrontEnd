@@ -13,4 +13,8 @@ export class TogglePostService {
     // Toggle the visibility state
     this.visibilitySource.next(!this.visibilitySource.getValue());
   }
+  
+  showForm() {
+    this.visibilitySource.next(true);
+  }
 }

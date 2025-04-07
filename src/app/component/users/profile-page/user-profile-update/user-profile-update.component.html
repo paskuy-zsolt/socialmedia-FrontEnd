@@ -1,7 +1,141 @@
-<p>user-profile-update works!</p>
+<div class="container">
+    <div class="user-profile-update hide">
 
+        <h2>Profile Update</h2>
 
-<button (click)="updateProfile()" class="update-profile">
-    <fa-icon [icon]="icon_save" class="icon"></fa-icon>
-    <span>Confirm</span>
-</button>
+        <div class="profile-editable">
+            <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" enctype="multipart/form-data">
+        
+                <!-- Name Field -->
+                <div class="form_input_group required">
+                    <label>Name:</label>
+                    <div class="form-control">
+                        <input type="text" formControlName="name" />
+                        <button class="delete" *ngIf="name?.value" (click)="clearField('name')">❌</button>
+                    </div>
+                    <div *ngIf="name?.invalid && name?.touched" class="error">
+                        <div *ngIf="name?.hasError('required')">Name is required.</div>
+                        <div *ngIf="name?.hasError('minlength')">Name must be at least 3 characters long.</div>
+                        <div *ngIf="name?.hasError('maxlength')">Name cannot exceed 200 characters.</div>
+                    </div>
+                </div>
+            
+                <!-- Email Field -->
+                <div class="form_input_group required">
+                    <label>Email:</label>
+                    <div class="form-control">
+                        <input type="email" formControlName="email" />
+                        <button class="delete" *ngIf="email?.value" (click)="clearField('email')">❌</button>
+                    </div>
+                    <div *ngIf="email?.invalid && email?.touched" class="error">
+                        <div *ngIf="email?.hasError('required')">Email is required.</div>
+                        <div *ngIf="email?.hasError('pattern')">Please enter a valid email.</div>
+                    </div>
+                </div>
+                
+                <!-- Username Field -->
+                <div class="form_input_group">
+                    <label>Nickname:</label>
+                    <div class="form-control">
+                        <input type="text" formControlName="username" />
+                        <button class="delete" *ngIf="username?.value" (click)="clearField('username')">❌</button>
+                    </div>
+                    <div *ngIf="username?.invalid && username?.touched" class="error">
+                        <div *ngIf="username?.hasError('maxlength')">Username cannot exceed 50 characters.</div>
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <!-- Phone Field -->
+                    <div class="form_input_group">
+                        <label>Phone Number:</label>
+                        <div class="form-control">
+                            <ngx-intl-tel-input
+                                class="phone_input"
+                                formControlName="phone"
+                                [enablePlaceholder]="true"
+                                [separateDialCode]="true"
+                                [searchCountryFlag]="true"
+                                [selectFirstCountry]="false"
+                                [maxLength]="15">
+                            </ngx-intl-tel-input>
+                            <button class="delete" *ngIf="phone?.value" (click)="clearField('phone')">❌</button>
+                        </div>
+                        <div *ngIf="phone?.invalid && phone?.touched" class="error">
+                            <div *ngIf="phone?.hasError('max')">Phone number cannot have more than 15 digits.</div>
+                        </div>
+                    </div>
+
+                    <!-- Avatar Upload -->
+                    <div class="form_input_group profile-picture">
+                        <label>Upload Profile Picture:</label>
+                        <div class="current-avatar">
+                            <div class="avatar-container" *ngIf="currentAvatarUrl">
+                                <img
+                                    [src]="currentAvatarUrl"
+                                    alt="Current Avatar Preview"
+                                    class="avatar-image"
+                                    (mousemove)="onMouseMove($event)"
+                                    (mouseenter)="showMagnifier = true"
+                                    (mouseleave)="showMagnifier = false"
+                                />
+                                
+                                <!-- Magnifier -->
+                                <div
+                                    *ngIf="showMagnifier && currentAvatarUrl"
+                                    class="magnifier"
+                                    [ngStyle]="{
+                                    'background-image': 'url(' + currentAvatarUrl + ')',
+                                    'background-position': magnifierBackgroundPosition,
+                                    'left.px': magnifierPosition.x,
+                                    'top.px': magnifierPosition.y
+                                    }"
+                                ></div>
+                            </div>
+                            <input type="file" id="avatar" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/gif">
+                            <!-- <button class="delete avatar-delete" *ngIf="currentAvatarUrl" (click)="deleteAvatar()">❌</button> -->
+                        </div>
+                        
+                        <div *ngIf="avatar?.invalid" class="error">
+                            <div *ngIf="avatar?.errors?.['fileType']">Invalid file type. Only JPEG, PNG, and GIF are allowed.</div>
+                            <div *ngIf="avatar?.errors?.['maxSize']">File size exceeds the maximum limit of 2MB.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description Field -->
+                <div class="form_input_group">
+                    <label>About:</label>
+                    <div class="form-control">
+                        <textarea formControlName="description" rows="7"></textarea>
+                        <button class="delete" *ngIf="description?.value" (click)="clearField('description')">❌</button>
+                    </div>
+                    <div *ngIf="description?.invalid && description?.touched" class="error">
+                        <div *ngIf="description?.hasError('maxlength')">Description cannot exceed 500 characters.</div>
+                    </div>
+                </div>
+            
+                <!-- Form Buttons -->
+                <div class="form-control-buttons">
+                    <button class="form_button update-profile" type="submit" [disabled]="profileForm.invalid || isLoading">Update Profile</button>
+                    <button class="form_button update-cancel" type="button" (click)="cancelUpdate()" [disabled]="isLoading">Cancel</button>
+                </div>
+            </form>
+            
+            <!-- Error Message -->
+            <div *ngIf="errorMessage" class="error error-message">{{ errorMessage }}</div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message">
+        <svg viewBox="0 0 76 76" class="message_icon icon-checkmark">
+            <circle cx="38" cy="38" r="36"/>
+            <path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.7,40.9l10.9,10.9l28.7-28.7"/>
+        </svg>
+        <div class="message_title">Account Updated Successfully</div>
+        <div class="message_content">
+            <p>You will be redirected to <strong>Profile Page</strong> <span *ngIf="countdown > 0" class="countdown-timer"> in {{ countdown }}</span>.</p>
+        </div>
+    </div>
+</div>

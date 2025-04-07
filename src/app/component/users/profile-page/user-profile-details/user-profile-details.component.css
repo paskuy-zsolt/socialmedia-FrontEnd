@@ -15,6 +15,9 @@
 
 .user_about {
     max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .user_details {
@@ -38,6 +41,10 @@
     gap: 42px;
     line-height: 1;
     padding: 10px 0 0;
+}
+
+.user_description {
+    white-space: pre-line;
 }
 
 .subcategory {
@@ -101,7 +108,6 @@
 
 .posts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(30% - 20px), 282px));
     grid-gap: 20px;
 }
 
@@ -111,18 +117,20 @@
     align-items: center;
     text-align: center;
     padding: 24px;
-    border-radius: 8px;
+    border-radius: 4px;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     background: #fff;
     position: relative;
+    max-width: 290px;
 }
 
 .post_item .title {
     font-weight: 600;
     font-size: 18px;
     overflow: hidden;
+    hyphens: auto;
 }
 
 .no-post .post_item {
@@ -178,43 +186,31 @@
     cursor: pointer;
 }
 
-.edit-profile,
-.update-profile {
+.profile-modification {
+    position: absolute;
+    right: 32px;
+    top: 24px;
+}
+
+.edit-profile {
     display: flex;
     gap: 6px;
     align-items: center;
     padding: 1rem 2rem;
     border-radius: 4px;
-    position: absolute;
-    right: 32px;
     font-weight: bold;
     font-size: 1em;
-    border: none;
     outline: none;
     cursor: pointer;
-}
-
-.edit-profile {
-    top: 24px;
     border: 1px solid #010726;
     background: transparent;
     color: #010726;
-    transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s;
+    /* transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s; */
 }
 
 .edit-profile:hover {
     background-color: #010726;
     color: #fff;
-}
-
-.update-profile {
-    color: #fff;
-    background: #07c5a1;
-    bottom: 24px;
-}
-
-.update-profile:hover {
-    background: #09a88b;
 }
 
 .profile-modification .icon {
@@ -223,6 +219,39 @@
 
 .profile-modification span {
     font-family: "Arial", sans-serif;
+}
+
+.profile-update-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 4px;
+    opacity: 1;
+    transition: opacity 0.5s, visibility 0.5s ease-out;
+}
+  
+.profile-update-message.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.profile-update-message .triangle {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 8px 9px 8px;
+    border-color: transparent transparent #010726 transparent;
+    transform: rotate(0deg);
+    margin-left: -110px;
+}
+
+.profile-update-message p {
+    font-size: 0.75em;
+    padding: .75rem 1.25rem;
+    border-radius: 5px;
+    background: #010726;
+    color: #fff;
 }
 
 .actions {
@@ -269,13 +298,17 @@
 }
 
 .update-post-form form {
+    background: #fff;
     border: 1px solid rgb(228, 228, 231);
-    border-radius: 8px;
+    border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-    margin: 24px 0;
     position: relative;
     width: 100%;
-    padding: 36px 24px;
+    padding: 24px 32px;
+}
+
+.update-post-form form h2 {
+    margin: 0 0 24px;
 }
 
 .update-post-form textarea {
@@ -309,12 +342,19 @@
     outline: none;
     cursor: pointer;
     border: 1px solid;
-    transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s;
+    /* transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s; */
 }
 
 .update-post-form .button-group .submit-update {
     background-color: #07c5a1;
     color: #fff;
+    border: 1px solid #07c5a1;
+}
+
+.update-post-form .button-group .cancel-update {
+    border: 1px solid #010726;
+    background: transparent;
+    color: #010726;
 }
 
 .update-post-form .button-group .submit-update:hover {
@@ -375,4 +415,147 @@ svg {
 .icon-checkmark path {
     transition: stroke-dashoffset 350ms ease;
     transition-delay: 100ms;
+}
+
+@media only screen and (min-width: 1400px) {
+    .posts {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+
+@media only screen and (max-width: 1400px) and (min-width: 991px)  {
+    .posts {
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .posts {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    .post_item {
+        max-width: 280px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .user_details {
+        padding: 32px;
+        gap: 1.5rem;
+    }
+
+    .edit-profile {
+        gap: 1.5rem;
+        padding: .5rem;
+    }
+
+    .profile-modification {
+        right: 18px;
+        top: 18px;
+    }
+
+    .profile-modification span {
+        display: none;
+    }
+
+    .profile-modification .icon {
+        line-height: 1;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    h2 {
+        margin-top: 7px;
+    }
+    .user_main,
+    .user_username,
+    .user_description {
+        margin-left: -75px;
+    }
+
+    .user_main {
+        margin-top: .5rem;
+    }
+
+    .user_main strong,
+    .user_username strong,
+    .user_description strong {
+        display: inline-block;
+        width: 80px;
+    }
+
+    .user_email,
+    .user_phone,
+    .user_username,
+    .user_description {
+        display: flex;
+    }
+
+    .user_description br {
+        display: none;
+    }
+
+    .user_about span {
+        width: calc(100% - 80px);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .user_profile {
+        margin: 0;
+    }
+    
+    .user_category {
+        padding: 0 1rem 1.5rem;
+    }
+
+    .content {
+        margin: 1rem 0 0;
+    }
+
+    .update-post-form {
+        margin: 0 1rem 1rem;
+    }
+
+    .user_details,
+    .post_item,
+    .update-post-form form,
+    .update-post-form .button-group button {
+        padding: 1rem;
+    }
+
+    .post_item .title {
+        font-size: 1rem;
+    }
+
+    .profile-modification {
+        right: 8px;
+        top: 8px;
+    }
+    
+    .edit-profile {
+        padding: 3px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .user_main strong,
+    .user_username strong,
+    .user_description strong {
+        margin-right: 3px;
+        width: auto;
+    }
+
+    .user_about span {
+        width: auto;
+    }
+
+    .user_description {
+        flex-direction: column;
+    }
+
+    .user_name h2 {
+        margin-top: 1rem;
+    }
 }

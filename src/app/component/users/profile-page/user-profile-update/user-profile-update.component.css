@@ -1,0 +1,280 @@
+@import "intl-tel-input/build/css/intlTelInput.css";
+
+.container {
+    overflow: hidden;
+    background: #fff;
+    border-radius: 8px;
+    padding: 32px;
+    margin: 0 0 32px;
+    min-height: 240px;
+}
+
+h2 {
+    margin: 0 0 24px;
+}
+
+.form_input_group {
+    margin-bottom: 1rem;
+}
+
+.form_input_group.required label {
+    padding-left: 12px;
+}
+
+.form-control {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.form_input_group.required label::before {
+    position: absolute;
+    content: '*';
+    left: 0;
+    color: #cc3333;
+}
+
+.phone_input {
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+    outline: none;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+input {
+    margin-bottom: 0;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+input,
+textarea {
+    padding-right: 27px;
+}
+
+textarea:focus,
+textarea:focus-within,
+textarea:focus-visible {
+    border-color: #07c5a1;
+    background: #ffffff;
+    outline: none;
+}
+
+label {
+    position: relative;
+    display: inline-block;
+    font-weight: 500;
+    margin-bottom: 3px;
+    padding-left: 3px;
+}
+
+.error {
+    color: #cc3333;
+    font: 500 1rem "Quicksand", sans-serif;
+    margin: 5px 0 0;
+}
+
+.error-message {
+    font-style: italic;
+    margin: 1rem 0 0;
+    font-size: .9em;
+}
+
+.delete {
+    /* background: red;
+    padding: .75rem 1rem;
+    font-weight: bold;
+    font-size: 15px;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer; */
+    background: transparent;
+    padding: 13px 5px;
+    border: none;
+    border-radius: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.avatar-delete {
+    padding: 0 5px;
+}
+
+.current-avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+img {
+    max-width: 55px;
+    width: 55px;
+    height: 55px;
+    border: 1px solid #e4e4e7;
+    border-radius: 50%;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-image {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: zoom-in;
+}
+  
+.magnifier {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: 200% 200%;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.flex .form-control.form_input_group {
+    width: 50%;
+}
+
+.flex .profile-picture input {
+    border: none;
+    background: transparent;
+    padding: 12px 0;
+}
+
+.form-control-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form_button {
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.update-profile {
+    border: 1px solid #07c5a1;
+    background: #07c5a1;
+    color: #ffffff;
+}
+
+.update-cancel {
+    border: 1px solid #010726;
+    background: transparent;
+    color: #010726;
+}
+
+.update-profile:hover {
+    background: #09a88b;
+}
+
+.update-cancel:hover {
+    background-color: #010726;
+    color: #fff;
+}
+
+svg {
+    opacity: 0;
+}
+
+.success-message {
+    text-align: center;
+    width: 330px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+  
+.message_icon {
+    max-width: 75px;
+}
+  
+.message_title {
+    color: #3dc480;
+    transform: translateY(15px);
+    font-size: 24px;
+    opacity: 0;
+    transition: all 200ms ease;
+    letter-spacing: -.1px;
+}
+  
+.message_content {
+    color: #b8babb;
+    transform: translateY(25px);
+    opacity: 0;
+    transition: all 200ms ease;
+    transition-delay: 50ms;
+}
+  
+.icon-checkmark circle {
+    fill: #3dc480;
+    transform-origin: 50% 50%;
+    transform: scale(0);
+    transition: transform 200ms cubic-bezier(0.22, 0.96, 0.38, 0.98);
+}
+
+.icon-checkmark path {
+    transition: stroke-dashoffset 350ms ease;
+    transition-delay: 100ms;
+}
+
+
+@media only screen and (max-width: 900px) {
+    .iti,
+    .flex {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container {
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .form_button {
+        padding: 1rem;
+    }
+}

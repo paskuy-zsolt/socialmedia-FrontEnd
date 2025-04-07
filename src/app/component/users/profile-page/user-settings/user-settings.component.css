@@ -121,3 +121,28 @@ svg {
     transition: stroke-dashoffset 350ms ease;
     transition-delay: 100ms;
 }
+
+hr {
+    display: none;
+}
+
+@media only screen and (max-width: 500px) {
+    .recover-password,
+    .delete-account {
+        padding: 1rem 0;
+        border: none;
+        border-radius: unset;
+        margin-bottom: 0;
+    }
+
+    hr {
+        display: block;
+        border: 1px solid rgb(228, 228, 231);
+        margin: 1rem 0 0.75rem 0;
+    }
+
+    .container {
+        padding: 1rem 1rem 8px;
+        margin: 0 0 1rem;
+    }
+}

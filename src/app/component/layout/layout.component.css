@@ -32,7 +32,7 @@ main {
     width: -webkit-fill-available;
     border: 2px solid #001f33;
     border-right: none;
-    min-height: 70vh;
+    border-bottom-color: #004658;
 }
 
 main::before {
@@ -52,4 +52,48 @@ main::before {
 .footer_content {
     grid-area: 4 / 1 / 4 / 3;
     background-color: #fff;
+}
+
+@media only screen and (max-width: 1200px) {
+    .app_container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border: 5px solid #fff;
+    }
+    
+    .header_content {
+        position: relative;
+        z-index: 99;
+    }
+
+    main {
+        overflow-y: scroll;
+        border: 1px solid #004658;
+    }
+
+    .back-to-top_content {
+        background-color: #07c5a1;
+        padding: 0 0 1rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .header_content {
+        padding: 1.5rem 2.5rem;
+    }
+
+    main {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .header_content {
+        padding: 2rem 1rem 1rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
 }

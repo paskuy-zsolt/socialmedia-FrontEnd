@@ -5,7 +5,7 @@
     gap: 40px;
     width: 770px;
     max-width: 770px;
-    margin: 1rem;
+    margin: 1rem auto;
     padding: 3rem 3.5rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, .2);
     border-radius: 4px;
@@ -25,8 +25,7 @@
     max-width: 330px;
 }
 
-img {    
-    /* aspect-ratio: 1/1; */
+img {
     object-fit: contain;
     max-width: 257px;
 }
@@ -49,4 +48,40 @@ strong {
 
 .message_content {
     text-align: center;
+}
+
+@media only screen and (max-width: 770px) {
+    .container {
+        width: calc(100% - 2rem);
+        justify-content: unset;
+    }
+
+    .message_title {
+        font-size: 25px;
+    }
+
+    img {
+        max-width: unset;
+        width: 180px;
+        border-radius: 50%;
+        overflow: visible;
+        border: 2px solid;
+        padding: 27px;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .container {
+        justify-content: center;
+    }
+    
+    img {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container {
+        padding: 2rem 2.25rem;
+    }
 }

@@ -4,7 +4,7 @@
     border: 1px solid #001f33;
     border-radius: 50%;
     max-width: 90px;
-    margin: 35px auto;
+    margin: 34px auto;
 }
 
 .logo img {
@@ -80,4 +80,33 @@ span {
     font-weight: 500;
     display: inline-block;
     text-align: left;
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .logo {
+        display: none;
+    }
+
+    .navbar,
+    .navbar.scrolled {
+        position: absolute;
+        width: 100%;
+        max-height: 100vh;
+        box-sizing: border-box;
+        overflow-y: auto;
+        background: #ededed;
+        list-style-type: none;
+        -webkit-font-smoothing: antialiased;
+        transform-origin: 0% 0%;
+        transform: translate(0, -100%);
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        height: unset;
+        z-index: 9;
+        border: none;
+    }
+
+    .navbar.sidebar-open {
+        transform: none;
+    }
 }

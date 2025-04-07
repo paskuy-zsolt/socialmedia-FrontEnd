@@ -13,8 +13,11 @@
                 </a>
             </div>
             <div class="footer-menu">
-                <h6 class="footer-menu-name"> Get Started</h6>
-                <ul id="menu-get-started" class="footer-menu-list">
+                <h6 class="footer-menu-name toggle-title" (click)="toggleMenu('menu-get-started')">
+                    <div class="title">Get Started</div>
+                    <div class="triangle" [class.rotated]="menuStates['menu-get-started'] === 'visible'"></div>
+                </h6>
+                <ul id="menu-get-started" class="toggle-content footer-menu-list" [@toggleMenu]="menuStates['menu-get-started']">
                     <li class="menu-item menu-item-type-post_type menu-item-object-product">
                         <a routerLink="./">Home</a>
                     </li>
@@ -26,8 +29,11 @@
         </div>
         <div class="footer-content-column">
             <div class="footer-menu">
-                <h6 class="footer-menu-name"> Company</h6>
-                <ul id="menu-company" class="footer-menu-list">
+                <h6 class="footer-menu-name toggle-title" (click)="toggleMenu('menu-company')">
+                    <div class="title">Company</div>
+                    <div class="triangle" [class.rotated]="menuStates['menu-company'] === 'visible'"></div>
+                </h6>
+                <ul id="menu-company" class="toggle-content footer-menu-list" [@toggleMenu]="menuStates['menu-company']">
                     <li class="menu-item menu-item-type-post_type menu-item-object-page">
                         <a href="/contact">Contact</a>
                     </li>
@@ -37,8 +43,11 @@
                 </ul>
             </div>
             <div class="footer-menu">
-                <h6 class="footer-menu-name">Legal</h6>
-                <ul id="menu-legal" class="footer-menu-list">
+                <h6 class="footer-menu-name toggle-title" (click)="toggleMenu('menu-legal')">
+                    <div class="title">Legal</div>
+                    <div class="triangle" [class.rotated]="menuStates['menu-legal'] === 'visible'"></div>
+                </h6>
+                <ul id="menu-legal" class="toggle-content footer-menu-list" [@toggleMenu]="menuStates['menu-legal']">
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-170434">
                         <a routerLink="/policy-notice">Privacy Notice</a>
                     </li>
@@ -50,45 +59,49 @@
         </div>
         <div class="footer-content-column">
             <div class="footer-menu">
-                <h6 class="footer-menu-name"> Quick Links</h6>
-                <ul id="menu-quick-links" class="footer-menu-list">
+                <h6 class="footer-menu-name toggle-title" (click)="toggleMenu('menu-quick-links')">
+                    <div class="title">Quick Links</div>
+                    <div class="triangle" [class.rotated]="menuStates['menu-quick-links'] === 'visible'"></div>
+                </h6>
+                <ul id="menu-quick-links" class="toggle-content footer-menu-list" [@toggleMenu]="menuStates['menu-quick-links']">
                     <li class="menu-item menu-item-type-custom menu-item-object-custom">
-                        <a target="_blank" rel="noopener noreferrer" href="/support-center">Support Center</a>
+                        <a href="/feed">Feed</a>
                     </li>
                     <li class="menu-item menu-item-type-custom menu-item-object-custom">
-                        <a target="_blank" rel="noopener noreferrer" href="/service-status">Service Status</a>
+                        <a href="/profile">Profile</a>
                     </li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page">
-                        <a href="/security">Security</a>
+                        <a href="/profile-update">Update</a>
                     </li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page">
-                        <a href="/blog">Blog</a>
+                        <a href="/users">Users</a>
                     </li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page">
-                        <a href="reviews">Reviews</a>
+                        <a href="settings">Settings</a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="footer-content-column">
             <div class="footer-call-to-action">
-                <h6 class="footer-call-to-action-title"> Let's Chat</h6>
+                <h6 class="footer-call-to-action-title"> Let's Chat <span class="triangle"></span></h6>
                 <p class="footer-call-to-action-description"> Have a support question?</p>
-                <a class="footer-call-to-action-button button" target="_self" disabled> Get in Touch </a>
+                <a class="footer-call-to-action-button button" target="_self" href="mailto:contact@paskuyzsoltferenc.com" disabled> Get in Touch </a>
+                
             </div>
             <div class="footer-call-to-action">
-                <h6 class="footer-call-to-action-title"> You Call Us</h6>
-                <p class="footer-call-to-action-link-wrapper"> <a class="footer-call-to-action-link" target="_self"> XXX-XXX-XXXX </a></p>
+                <h6 class="footer-call-to-action-title"> You Call Us <span class="triangle"></span></h6>
+                <p class="footer-call-to-action-link-wrapper"> <a class="footer-call-to-action-link" target="_self"> 075-704-0810 </a></p>
             </div>
         </div>
         <div class="footer-social-links">
             <svg class="footer-social-amoeba-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236 54">
                 <path class="footer-social-amoeba-path" d="M223.06,43.32c-.77-7.2,1.87-28.47-20-32.53C187.78,8,180.41,18,178.32,20.7s-5.63,10.1-4.07,16.7-.13,15.23-4.06,15.91-8.75-2.9-6.89-7S167.41,36,167.15,33a18.93,18.93,0,0,0-2.64-8.53c-3.44-5.5-8-11.19-19.12-11.19a21.64,21.64,0,0,0-18.31,9.18c-2.08,2.7-5.66,9.6-4.07,16.69s.64,14.32-6.11,13.9S108.35,46.5,112,36.54s-1.89-21.24-4-23.94S96.34,0,85.23,0,57.46,8.84,56.49,24.56s6.92,20.79,7,24.59c.07,2.75-6.43,4.16-12.92,2.38s-4-10.75-3.46-12.38c1.85-6.6-2-14-4.08-16.69a21.62,21.62,0,0,0-18.3-9.18C13.62,13.28,9.06,19,5.62,24.47A18.81,18.81,0,0,0,3,33a21.85,21.85,0,0,0,1.58,9.08,16.58,16.58,0,0,1,1.06,5A6.75,6.75,0,0,1,0,54h636C235.47,54,223.83,50.52,223.06,43.32Z"></path>
             </svg>
-            <a class="footer-social-link instagram" href="https://www.instagram.com/paskuy_zsolt/" target="_blank">
-                <span class="hidden-link-text">Instagram</span>
-                <svg class="footer-social-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path class="footer-social-icon-path" d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"></path>
+            <a class="footer-social-link whatsapp" href="https://api.whatsapp.com/send?phone=0040757040810">
+                <span class="hidden-link-text">WhatsApp</span>
+                <svg class="footer-social-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+                    <path class="footer-social-icon-path" d="M 24.503906 7.503906 C 22.246094 5.246094 19.246094 4 16.050781 4 C 9.464844 4 4.101563 9.359375 4.101563 15.945313 C 4.097656 18.050781 4.648438 20.105469 5.695313 21.917969 L 4 28.109375 L 10.335938 26.445313 C 12.078125 27.398438 14.046875 27.898438 16.046875 27.902344 L 16.050781 27.902344 C 22.636719 27.902344 27.996094 22.542969 28 15.953125 C 28 12.761719 26.757813 9.761719 24.503906 7.503906 Z M 16.050781 25.882813 L 16.046875 25.882813 C 14.265625 25.882813 12.515625 25.402344 10.992188 24.5 L 10.628906 24.285156 L 6.867188 25.269531 L 7.871094 21.605469 L 7.636719 21.230469 C 6.640625 19.648438 6.117188 17.820313 6.117188 15.945313 C 6.117188 10.472656 10.574219 6.019531 16.054688 6.019531 C 18.707031 6.019531 21.199219 7.054688 23.074219 8.929688 C 24.949219 10.808594 25.980469 13.300781 25.980469 15.953125 C 25.980469 21.429688 21.523438 25.882813 16.050781 25.882813 Z M 21.496094 18.445313 C 21.199219 18.296875 19.730469 17.574219 19.457031 17.476563 C 19.183594 17.375 18.984375 17.328125 18.785156 17.625 C 18.585938 17.925781 18.015625 18.597656 17.839844 18.796875 C 17.667969 18.992188 17.492188 19.019531 17.195313 18.871094 C 16.894531 18.722656 15.933594 18.40625 14.792969 17.386719 C 13.90625 16.597656 13.304688 15.617188 13.132813 15.320313 C 12.957031 15.019531 13.113281 14.859375 13.261719 14.710938 C 13.398438 14.578125 13.5625 14.363281 13.710938 14.1875 C 13.859375 14.015625 13.910156 13.890625 14.011719 13.691406 C 14.109375 13.492188 14.058594 13.316406 13.984375 13.167969 C 13.910156 13.019531 13.3125 11.546875 13.0625 10.949219 C 12.820313 10.367188 12.574219 10.449219 12.390625 10.4375 C 12.21875 10.429688 12.019531 10.429688 11.820313 10.429688 C 11.621094 10.429688 11.296875 10.503906 11.023438 10.804688 C 10.75 11.101563 9.980469 11.824219 9.980469 13.292969 C 9.980469 14.761719 11.050781 16.183594 11.199219 16.382813 C 11.347656 16.578125 13.304688 19.59375 16.300781 20.886719 C 17.011719 21.195313 17.566406 21.378906 18 21.515625 C 18.714844 21.742188 19.367188 21.710938 19.882813 21.636719 C 20.457031 21.550781 21.648438 20.914063 21.898438 20.214844 C 22.144531 19.519531 22.144531 18.921875 22.070313 18.796875 C 21.996094 18.671875 21.796875 18.597656 21.496094 18.445313 Z"></path>
                 </svg>
             </a>
             <a class="footer-social-link freelancer" href="https://www.freelancer.com/u/Zsocky" target="_blank">
@@ -97,14 +110,11 @@
                     <path class="footer-social-icon-path" d="M56.897 0l6.624 9.29L97.036 0M22.075 72.333l18.13-17.725-10.912-11.71M54.152 0l-9.69 8.738 16.298.608M16.482 0l3.48 7.133 19.18 1.195M26.75 36.986l14.17-26.434L-.23 8.328M28.4 38.662L41.785 53.04 56.55 38.567l4.582-26.957-17.993-.918"></path>
                 </svg>
             </a>
-            <a class="footer-social-link youtube" href="https://codepen.io/zsocky" target="_blank">
-                <span class="hidden-link-text">Youtube</span>
-                <svg class="footer-social-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-                    <g transform="translate(0,30) scale(0.005859,-0.005859)">
-                      <path  class="footer-social-icon-path" d="M2495 5109 c-16 -4 -569 -369 -1230 -809 -847 -565 -1207 -810 -1223 -834 -12 -18 -27 -48 -32 -67 -13 -46 -13 -1632 0 -1678 5 -19 20 -49 32 -67 16 -24 377 -270 1229 -838 1278 -852 1237 -827 1331 -811 56 10 2441 1597 2476 1649 12 18 27 48 32 67 13 46 13 1632 0 1678 -5 19 -20 49 -32 67 -27 40 -2402 1628 -2458 1644 -41 12 -84 12 -125 -1z m-155 -1132 l0 -514 -467 -313 c-257 -173 -474 -314 -483 -314 -16 -1 -770 493 -769 504 0 4 1707 1147 1717 1149 1 1 2 -230 2 -512z m2159 -637 c0 -5 -744 -502 -761 -509 -5 -2 -223 140 -484 315 l-474 318 0 513 0 513 860 -572 c473 -315 859 -575 859 -578z m-1554 -517 c212 -141 385 -259 385 -263 0 -4 -173 -122 -385 -263 l-385 -257 -385 257 c-212 141 -384 260 -383 265 2 6 754 514 766 517 1 1 175 -114 387 -256z m-1970 -263 c0 -5 -120 -90 -267 -189 l-268 -180 0 369 0 369 268 -180 c147 -99 267 -184 267 -189z m3705 1 l0 -368 -267 178 c-148 99 -268 184 -268 189 0 7 497 351 533 369 1 0 2 -165 2 -368z m-2806 -591 l466 -313 0 -514 0 -513 -860 572 c-473 315 -859 575 -859 578 0 13 756 509 771 506 9 -2 226 -144 482 -316z m2250 65 c206 -137 375 -252 375 -255 0 -3 -386 -263 -859 -578 l-860 -572 0 513 0 513 473 317 c259 174 477 316 483 315 7 -2 181 -115 388 -253z"/>
-                    </g>
-                  </svg>
-                  
+            <a class="footer-social-link instagram" href="https://www.instagram.com/paskuy_zsolt/" target="_blank">
+                <span class="hidden-link-text">Instagram</span>
+                <svg class="footer-social-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path class="footer-social-icon-path" d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"></path>
+                </svg>
             </a>
             <a class="footer-social-link github" href="https://github.com/paskuy-zsolt" target="_blank">
                 <span class="hidden-link-text">Github</span>
@@ -116,7 +126,7 @@
     </div>
     <div class="footer-copyright">
         <div class="footer-copyright-wrapper">
-            <p class="footer-copyright-text">©2023-2024. | Designed By: <a class="footer-copyright-link" href="https://paskuyzsoltferenc.com/" target="_blank">Paskuy Zsolt-Ferenc</a>. | All rights reserved.</p>
+            <p class="footer-copyright-text">©2023-2025. | Designed By: <a class="footer-copyright-link" href="https://paskuyzsoltferenc.com/" target="_blank">Paskuy Zsolt-Ferenc</a>. | All rights reserved.</p>
         </div>
     </div>
 </footer>

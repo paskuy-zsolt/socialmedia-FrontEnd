@@ -8,7 +8,6 @@
                 {{ post.authorId === currentUser?.userID ? 'You' : post.authorName }}
             </a>
         </div>
-          
     </div>
 
     <div class="description">
@@ -16,7 +15,7 @@
             <a [routerLink]="['/post', ':' + post._id]">{{ post.title }}</a>
         </div>
         <div class="date">
-            <em *ngIf="post.createdAt">Posted {{ post.createdAt | timePassed }}</em>
+            <em *ngIf="post.createdAt"><span>Posted</span> {{ post.createdAt | timePassed }}</em>
         </div>
     </div>
 
@@ -30,14 +29,24 @@
 
         <div class="about">
             <!-- Conditionally show the full content or the excerpt -->
-            <p *ngIf="showFullContent; else excerptContent">{{ post.content }}</p>
+            <p *ngIf="showFullContent; else excerptContent" [innerHTML]="post.content | linkify"></p>
             <ng-template #excerptContent>
                 <div *ngIf="post?.content">
-                    {{ getExcerpt(post.content) }}
-                <button *ngIf="post.content.length > 350" (click)="toggleContentVisibility()" class="read-more-button">...<span><em>Show More</em></span>.</button>
-            </div>
+                    <span [innerHTML]="getExcerpt(post.content) | linkify"></span>
+                    <button *ngIf="post.content.length > 350" (click)="toggleContentVisibility()" class="read-more-button">...<span><em>Show More</em></span>.</button>
+                </div>
             </ng-template>
-        
+
+            <!-- Display link preview if available -->
+            <div *ngFor="let url of previewKeys">
+                <a [href]="linkPreviews[url]?.url" class="link-preview" *ngIf="linkPreviews[url]" target="_blank" rel="noopener noreferrer">
+                    <img *ngIf="linkPreviews[url]?.image" [src]="linkPreviews[url].image" alt="Preview image">
+                    <div class="preview-content">
+                        <h4>{{ linkPreviews[url]?.title }}</h4>
+                        <p>{{ linkPreviews[url]?.description }}</p>
+                    </div>
+                </a>
+            </div>
             <!-- Toggle button to switch between "Read More" and "Read Less" -->
             <button *ngIf="showFullContent" (click)="toggleContentVisibility()" class="read-less-button"><span><em>Show Less</em></span></button>
         </div>
@@ -59,18 +68,16 @@
                 </svg>
             </button>
 
-            <button class="action comments_button" aria-label="Save">
+            <!-- <button class="action save_button" aria-label="Save">
                 <svg data-id="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
                 </svg>
-            </button>
+            </button> -->
         </div>
 
         <div class="stats">
             <div (mouseenter)="toggleUsersLiked(true)" (mouseleave)="toggleUsersLiked(false)" class="likes">
-                <span>
-                    {{ post.likesCount }} Likes
-                </span>
+                <div class="likes-count">{{ post.likesCount }} <span>Likes</span></div>
                 
                 <div *ngIf="showUsersLiked && usersLiked.length > 0" class="show_users_liked">
                     <ul>
@@ -85,7 +92,7 @@
             </div>
             <div class="spacer">•</div>
             <div *ngIf="post.comments" class="comment">
-                <span>{{ post.comments.length }} Comments</span>
+                <div class="comments-count">{{ post.comments.length }} <span>Comments</span></div>
             </div>
         </div>
     </div>

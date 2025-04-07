@@ -32,7 +32,7 @@ export class CreatePostComponent {
 
   constructor() {
     this.createPostForm = this.fb.group({
-      title: new FormControl('', [Validators.required]),
+      title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(60)]],
       content: new FormControl('', [Validators.required])
     });
   }
@@ -49,7 +49,7 @@ export class CreatePostComponent {
   
     // Proceed with creating the post
     this.postService.createPost(post).subscribe({
-      next: (response) => {
+      next: () => {
         this.successMessageService.showSuccessMessage();
         this.startCountdown();
         
@@ -83,7 +83,13 @@ export class CreatePostComponent {
   getTitleErrorMessage() {
     const control = this.createPostForm.get('title');
     if (control?.hasError('required')) {
-      return 'Add an unique title to your post';
+      return 'Add an unique title to your post.';
+    }
+    if (control?.hasError('minlength')) {
+      return "Too short title, let's make it at leas 10 characters long.";
+    }
+    if (control?.hasError('maxlength')) {
+      return 'Title cannot have more than 60 characters.';
     }
     return '';
   }

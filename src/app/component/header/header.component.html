@@ -1,7 +1,27 @@
 <header>
+    <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <div class="welcome_back">
-        <span *ngIf="currentUser">Hi <em><strong>{{ currentUser.name }}</strong></em>,</span>
+        <span class="user-name" *ngIf="currentUser">Hi <em><strong>{{ currentUser.name }}</strong></em>,</span>
         <span class="title">Welcome Back!</span>
     </div>
-    <button (click)="onLogout()">Logout</button>
+    <div class="messageButton leave">
+        <button (click)="onLogout()" class="messageButton">
+            <fa-icon [icon]="leave" class="icon"></fa-icon>
+            <span>Logout</span>
+        </button>
+        <div class="messageButton-message">Logout</div>
+    </div>
+    <div class="messageButton menu">
+        <div id="menuToggle" (click)="toggleSidebar()">
+            <input type="checkbox" id="menuCheckbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="messageButton-message">Menu</div>
+    </div>
 </header>

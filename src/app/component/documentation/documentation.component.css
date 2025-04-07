@@ -2,7 +2,7 @@
     margin: 0 auto;
     padding: 48px;
     box-shadow: 0 0 40px rgba(0, 0, 0, .2);
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: hidden;
     background: #fff;
     position: relative;
@@ -23,6 +23,7 @@
     border-radius: 50%;
     height: 60px;
     width: 60px;
+    aspect-ratio: 1/1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -246,4 +247,52 @@ svg {
 .icon-checkmark path {
     transition: stroke-dashoffset 350ms ease;
     transition-delay: 100ms;
+}
+
+@media only screen and (max-width: 991px) {
+    .structure-list li {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .structure-list li span:first-of-type {
+        width: 120px;
+    }
+
+    .structure-list li span:last-of-type {
+        width: calc(100% - (120px + 1rem));
+    }
+
+    textarea {
+        white-space: pre;
+        overflow: scroll;
+    }
+}
+
+@media (min-width:500px) and (max-width:600px) {
+    .container {
+        padding: 32px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container,
+    .box {
+        padding: 1rem;
+    }
+
+    .box {
+        margin-bottom: 1rem;
+    }
+
+    .code button {
+        padding: .5rem;
+        max-height: 28px;
+    }
+
+    .title .icon.back {
+        font-size: 20px;
+        height: 50px;
+        width: unset;
+    }
 }

@@ -10,14 +10,17 @@
         <ul *ngIf="!isLoading">
             <li *ngFor="let comment of comments">
                 <div class="profile">
-                    <img [src]="post.authorPicture || 'https://connect-hub-images.s3.eu-central-1.amazonaws.com/profile/blank_user.jpg'" [alt]="post.authorName" loading="lazy">
+                    <img    [src]="comment.user.avatar || 'https://connect-hub-images.s3.eu-central-1.amazonaws.com/profile/blank_user.jpg'" 
+                            [alt]="comment.user.name" 
+                            loading="lazy">>
                 </div>
                 <div class="user">
                     <div class="author">
                         <a [routerLink]="comment.user.userID === user?.userID ? '/profile' : '/user/' + comment.user.userID">
                             {{ comment.user.userID === user?.userID ? 'You' : comment.user.name }}
                         </a>
-                        <span>{{ comment.createdAt | timePassed }}</span>
+                        <span *ngIf="comment.createdAt">{{ comment.createdAt | timePassed }}</span>
+
                     </div>
                     <div class="content">
                         <p>{{ comment.content }}</p>

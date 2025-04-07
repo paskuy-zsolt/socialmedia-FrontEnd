@@ -1,5 +1,6 @@
 .container {
     margin: 0 auto;
+    border-radius: 4px;
     box-shadow: 0 0 40px rgba(0, 0, 0, .2);
     overflow: hidden;
     background: #fff;
@@ -72,4 +73,16 @@ ol li {
 
 .highlight-remove {
     background-color: transparent;
+}
+
+@media (min-width:500px) and (max-width:769px) {
+    .container {
+        padding: 48px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container {
+        padding: 1rem;
+    }
 }

@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChartLine, faUserFriends, faChevronDown, faChevronUp, faFileCirclePlus, faUser, faUserEdit, faGear } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +8,8 @@ import { UserService } from '../../service/user/user.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../modules/user/user.model';
 import { TogglePostService } from '../../service/share-service/toggle-post.service';
+import { SidebarService } from '../../service/sidebar/sidebar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +19,7 @@ import { TogglePostService } from '../../service/share-service/toggle-post.servi
   styleUrl: './sidebar.component.css'
 })
 
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
 
   // FontAwesome icons for navigation and UI elements
   feed = faChartLine;
@@ -27,7 +29,7 @@ export class SidebarComponent implements OnInit {
   editUser = faUserEdit;
   createPost = faFileCirclePlus;
   chevronUp = faChevronUp;
-  chevronDown = faChevronDown;  
+  chevronDown = faChevronDown;
 
   // Variables for user authentication and data
   userId: string | null = null;
@@ -35,6 +37,9 @@ export class SidebarComponent implements OnInit {
 
   isFeedMenuOpen: boolean = false;
   isScrolled: boolean = false;
+  isSidebarOpen: boolean = false;
+
+  private sidebarSubscription: Subscription = new Subscription();
 
   // Injecting necessary services for various functionalities
   private jwtDecoderService = inject(JwtDecoderService);
@@ -42,6 +47,7 @@ export class SidebarComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private togglePostService = inject(TogglePostService);
+  private sidebarService = inject(SidebarService);
 
   ngOnInit(): void {
     
@@ -69,6 +75,16 @@ export class SidebarComponent implements OnInit {
           this.isFeedMenuOpen = this.router.url === '/feed'; // Update feed menu open state
         }
       });
+    }
+
+    this.sidebarSubscription = this.sidebarService.sidebarState$.subscribe((isOpen) => {
+      this.isSidebarOpen = isOpen;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.sidebarSubscription) {
+      this.sidebarSubscription.unsubscribe();
     }
   }
 

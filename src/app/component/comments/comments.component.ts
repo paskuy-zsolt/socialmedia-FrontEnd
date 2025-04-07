@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Comment, Post } from '../../modules/post/post.model';
 import { User } from '../../modules/user/user.model';
 import { CommentService } from '../../service/comment/comment.service';
-import { TimePassedPipe } from '../../pipe/time-passed.pipe';
+import { TimePassedPipe } from '../../pipe/time/time-passed.pipe';
 import { forkJoin, map } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { CommentEventService } from '../../service/comment/event/comment-event.service';
 import { GlobalLoaderComponent } from '../loader/global-loader/global-loader.component';
+import { UserService } from '../../service/user/user.service';
 
 @Component({
   selector: 'app-comments',
@@ -23,6 +24,7 @@ export class CommentsComponent implements OnInit {
 
   private commentService = inject(CommentService);
   private commentEventService = inject(CommentEventService);
+  private userService = inject(UserService);  
 
   // Input properties
   @Input() comments: Comment[] = [];
@@ -54,7 +56,7 @@ export class CommentsComponent implements OnInit {
               _id: comment._id,
               content: comment.content,
               createdAt: comment.createdAt,
-              user: { userID: comment.user, name: '', email: '' }, // Initialize with userID as string
+              user: { userID: comment.user, name: '', email: '' },
               post: {} as Post
             }));
   
@@ -62,9 +64,20 @@ export class CommentsComponent implements OnInit {
             const userFetchObservables = tempComments.map(comment =>
               this.commentService.getUserForComments(comment.user.userID).pipe(
                 map(userData => {
-                  comment.user.name = userData.name;  // Set the user's name
-                  comment.user.email = userData.email; // Set the user's email
-                  return comment; // Return the updated comment
+                  comment.user.name = userData.name;
+                  comment.user.email = userData.email;
+            
+                  // Fetch user profile separately
+                  this.userService.getUserProfile(comment.user.userID).subscribe({
+                    next: (profileData) => {
+                      if (profileData) {
+                        comment.user.avatar = profileData.userProfile.avatar;
+                      }
+                    },
+                    error: (error) => console.error('Error fetching user profile:', error)
+                  });
+            
+                  return comment;
                 })
               )
             );
@@ -72,7 +85,7 @@ export class CommentsComponent implements OnInit {
             // Use forkJoin to wait for all user fetch requests to complete
             forkJoin(userFetchObservables).subscribe({
               next: (updatedComments) => {
-                this.comments = updatedComments; // Assign updated comments after fetching user data
+                this.comments = updatedComments;
                 this.isLoading = false;
               },
               error: (err) => {
@@ -81,7 +94,7 @@ export class CommentsComponent implements OnInit {
               }
             });
           } else {
-            this.comments = []; // No comments case
+            this.comments = [];
             this.isLoading = false;
           }
         } else {
@@ -114,8 +127,6 @@ export class CommentsComponent implements OnInit {
   
     this.commentService.addComment(newComment.postId, newComment.userId, newComment.content).subscribe({
       next: (response: any) => {
-        console.log(response);
-
         if (response.success) {
           // Assuming the backend returns the full comment with user info
           const addedComment: Comment = {
@@ -124,18 +135,29 @@ export class CommentsComponent implements OnInit {
             createdAt: response.comment.createdAt,
             user: {
               userID: this.user!.userID,
-              name: this.user!.name
+              name: this.user!.name,
+              avatar: this.user!.avatar || '' // Use an empty string as fallback
             },
             post: this.post
           };
-
-          // Push the new comment to the comments array and update UI
+        
+          // If avatar is missing, fetch it
+          if (addedComment.user.avatar === '') {
+            this.userService.getUserProfile(newComment.userId).subscribe({
+              next: (profileData) => {
+                if (profileData && profileData.userProfile.avatar) {
+                  addedComment.user.avatar = profileData.userProfile.avatar;
+                  
+                  // Trigger Angular's change detection to reflect the update
+                  this.comments = [...this.comments]; // Create a new array reference to force re-render
+                }
+              },
+              error: (error) => console.error('Error fetching user profile:', error)
+            });
+          }
+          
           this.comments.push(addedComment);
-
-          // Clear input field
           this.comment_value = '';
-
-          // Emit the updated comment count
           this.commentEventService.emitCommentCountChange(this.postId, this.comments.length);
         }
       },

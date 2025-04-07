@@ -3,8 +3,7 @@
         <img src="https://connect-hub-images.s3.eu-central-1.amazonaws.com/logo/connect_hub.png" alt="Connect Hub">
     </div>
 
-    <div class="navbar" [ngClass]="{'scrolled': isScrolled}">
-
+    <div class="navbar" [ngClass]="{'scrolled': isScrolled, 'sidebar-open': isSidebarOpen}">
         <!-- Feed Menu -->
         <div class="feed menu-item" (mouseenter)="isFeedMenuOpen = true" (mouseleave)="isFeedMenuOpen = false">
             <a routerLink="/feed" class="element_link">

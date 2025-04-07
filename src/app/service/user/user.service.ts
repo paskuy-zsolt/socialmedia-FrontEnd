@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User, UserResponse } from '../../modules/user/user.model';
+import { User, UserProfileResponse, UserResponse } from '../../modules/user/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { User, UserResponse } from '../../modules/user/user.model';
 
 export class UserService {
 
-  private apiUrl = "https://connect-hub.eu";
+  private apiUrl = "http://localhost:3000";
 
   private http = inject(HttpClient);
 
@@ -17,8 +17,17 @@ export class UserService {
     return this.http.get<UserResponse>(`${this.apiUrl}/users`);
   }
 
-  getUserDetails(userId: string): Observable<{ success: boolean; user: User }> {
-    return this.http.get<{ success: boolean; user: User }>(`${this.apiUrl}/user/${userId}`);
+  getUserDetails(userId: string): Observable<UserProfileResponse> {
+    return this.http.get<UserProfileResponse>(`${this.apiUrl}/user/${userId}`)
+  }
+
+  getUserProfile(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}/profile`);
+  }
+
+  updateUserProfile(userId: string, formData: FormData): Observable<UserProfileResponse> {
+    const headers = new HttpHeaders();
+    return this.http.patch<UserProfileResponse>(`${this.apiUrl}/user/${userId}/update-profile`, formData, { headers });
   }
 
   signup(userData: any): Observable<any> {

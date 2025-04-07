@@ -1,11 +1,21 @@
+.no-users {
+    display: inline-block;
+    background: #fff;
+    padding: 18px 24px;
+}
+
 .users {
     display: flex;
     flex-flow: row wrap;
-    gap: 34px;
+    gap: 2rem;
+}
+
+.user {
+    flex: 1 1 300px;
+    max-width: calc(33.33% - 22px);
 }
 
 .user_box {
-    width: 300px;
     background: #fff;
     padding: 18px 24px;
     border-radius: 5px;
@@ -16,6 +26,7 @@
 
 .user_avatar {
     max-width: 40px;
+    aspect-ratio: 1/1;
     border: 1px solid #e4e4e7;
     border-radius: 50%;
 }
@@ -24,4 +35,45 @@
     font-size: 14px;
     text-transform: capitalize;
     font-weight: 500;
+}
+
+p {
+    margin: 0 0 20px;
+}
+
+h2 {
+    font-size: 27px;
+}
+
+.row {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.75rem;
+    font-size: 16px;
+}
+
+input {
+    padding-left: calc(1.25rem + 16px);
+}
+
+@media (max-width: 1200px) {
+    .user {
+        max-width: calc(50% - 16px);
+    }
+}
+
+@media (max-width: 500px) {
+    .users {
+        gap: 1rem;
+    }
+
+    .user {
+        max-width: 100%;
+    }
 }

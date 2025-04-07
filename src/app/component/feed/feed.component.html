@@ -3,7 +3,7 @@
 </div>
 
 <div class="feed">
-    <div *ngIf="posts; else noPosts">
+    <div *ngIf="posts && posts.length > 0; else noPosts">
 
         <div *ngFor="let post of posts">
             <app-post [post]="post"></app-post>
@@ -23,7 +23,8 @@
     <!-- No posts message -->
     <ng-template #noPosts>
         <div class="no_posts_message">
-            <p>No posts to display.</p>
+            <p>There are currently no new posts.</p>
+            <span (click)="onAddPost()">...Add One <fa-icon [icon]="redirect" class="icon"></fa-icon></span>
         </div>
     </ng-template>
 </div>

@@ -1,6 +1,7 @@
 import { Component, inject, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TimePassedPipe } from '../../pipe/time-passed.pipe';
+import { TimePassedPipe } from '../../pipe/time/time-passed.pipe';
+import { LinkifyPipe } from '../../pipe/linkify/linkify.pipe';
 import { CommentsComponent } from '../comments/comments.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
@@ -9,15 +10,16 @@ import { AuthService } from '../../service/auth/auth.service';
 import { UserService } from '../../service/user/user.service';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { Post } from '../../modules/post/post.model';
-import { User } from '../../modules/user/user.model';
+import { User, userProfile } from '../../modules/user/user.model';
 import { LikeService } from '../../service/like/like.service';
 import { Subscription } from 'rxjs';
 import { CommentEventService } from '../../service/comment/event/comment-event.service';
+import { LinkPreviewService } from '../../service/link-preview/link-preview.service';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [FontAwesomeModule, TimePassedPipe, CommentsComponent, CommonModule, RouterLink, RouterModule],
+  imports: [LinkifyPipe, FontAwesomeModule, TimePassedPipe, CommentsComponent, CommonModule, RouterLink, RouterModule],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
@@ -47,15 +49,19 @@ export class PostComponent implements OnInit, OnDestroy {
   private userService = inject(UserService);
   private likeService = inject(LikeService);
   private commentEventService = inject(CommentEventService);
+  private linkPreviewService = inject(LinkPreviewService);
 
   // Input properties
   @Input() post: Post = {} as Post;
   currentUser: User | null = null;
+  linkPreviews: { [key: string]: any } = {};
 
   // Lifecycle hook
   ngOnInit() {
     if (!this.post || !this.post._id) {
       this.fetchPostDetails();
+    } else {
+      this.userDetails();
     }
   
     // Subscribe to comment count and initialize like status
@@ -72,6 +78,10 @@ export class PostComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    if (this.post?.content) {
+      this.extractLinks(this.post.content);
+    }
   }
 
   ngOnDestroy(): void {
@@ -88,7 +98,11 @@ export class PostComponent implements OnInit, OnDestroy {
       this.postService.getPost(postId).subscribe({
         next: (data: { post: Post }) => {
           this.post = data.post;
-          this.userDetails();
+
+          if (this.post?.authorId) {
+            this.userDetails();
+          }
+          
           this.initializeLikeStatus();
         },
         error: (error) => {
@@ -99,11 +113,16 @@ export class PostComponent implements OnInit, OnDestroy {
   }
   
   private userDetails(): void {    
-    const userId = this.post.authorId;
+    const userId = this.post?.authorId;
 
-    this.userService.getUserDetails(userId).subscribe({
-      next: (data: { user: User }) => {
-        this.post.authorName = data.user.name
+    if (!userId) {
+      return;
+    }
+
+    this.userService.getUserProfile(userId).subscribe({
+      next: (data: { userProfile: userProfile }) => {
+        this.post.authorName = data.userProfile.name
+        this.post.authorPicture = data.userProfile.avatar
       },
       error: (error) => {
         console.error('Error fetching user details:', error);
@@ -122,7 +141,7 @@ export class PostComponent implements OnInit, OnDestroy {
   getExcerpt(content: string | undefined): string {
 
     if (!content) {
-      return ''; // Return an empty string if content is undefined
+      return '';
     }
 
     return content.length > 350 ? content.substring(0, 350) + '' : content;
@@ -184,5 +203,29 @@ export class PostComponent implements OnInit, OnDestroy {
   // Get CSS class for comments button
   getCommentsButtonClass(): string {
     return this.showComments ? 'comments open' : 'comments';
+  }
+
+  get previewKeys(): string[] {
+    return Object.keys(this.linkPreviews || {});
+  }
+
+  extractLinks(content: string | undefined) {
+    if (!content) {
+      return;
+    }
+
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const urls = content.match(urlRegex) || [];
+
+    urls.forEach(url => {
+      this.linkPreviewService.fetchPreview(url).subscribe({
+        next: (preview) => {
+          if (preview) {
+            this.linkPreviews = { ...this.linkPreviews, [url]: preview };
+          }
+        },
+        error: (err) => console.error('Error fetching preview:', err)
+      });
+    });
   }
 }

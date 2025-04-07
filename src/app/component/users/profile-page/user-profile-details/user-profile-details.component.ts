@@ -41,10 +41,13 @@ export class UserProfileDetailsComponent implements OnInit, OnDestroy {
   postsLoaded: boolean = false;
   savedItemsLoaded: boolean = false;
   isCurrentUserProfile: boolean = false;
+  showProfileUpdateMessage: boolean = false;
 
   currentPage: number = 1;
   postsPerPage: number = 6;
   savedItemsPerPage: number = 6;
+
+  hideMessageTimer: any;
 
   // Track selected post to edit
   selectedPost: { _id: string; title: string; content: string } | null = null;
@@ -70,16 +73,24 @@ export class UserProfileDetailsComponent implements OnInit, OnDestroy {
   private loaderService = inject(LoaderService);
   private authService = inject(AuthService);
   private successMessageService = inject(SuccessMessageService);
+  
+  get avatarUrl(): string {
+    if (this.user?.avatar) {
+      if (typeof this.user.avatar === 'string') {
+          return this.user.avatar;
+      }
+    }
+    return this.fallbackImage; // Fallback image if avatar is not available
+  }  
 
   ngOnInit() {
-
     this.loaderService.show('userProfileLoader');
     this.loaderService.show('globalLoader');
 
     // Listen for route changes
     this.routeSub = this.route.paramMap.subscribe(params => {
-      const newUserId = params.get('id');
-
+      const newUserId = params.get('id')?.replace(/^:/, '') ?? null;
+      
       if (!newUserId) {
         this.isCurrentUserProfile = true;
         this.loadCurrentUserProfile();
@@ -101,9 +112,27 @@ export class UserProfileDetailsComponent implements OnInit, OnDestroy {
             next: (userData) => {
               if (userData.success) {
                 this.user = userData.user;
+                this.posts = userData.posts || [];
                 this.userLoaded = true;
                 this.fetchPosts(this.user.posts || []);
               }
+
+              // Fetch user profile only if available
+              this.userService.getUserProfile(currentUser.userID).subscribe({
+                next: (profileData) => {
+                  if (profileData) {
+                    this.user = profileData.userProfile;
+                  }
+                },
+                error: (error) => {
+                  if (error.status === 404) {
+                    this.showProfileUpdateMessage = true;
+                    this.hideMessageAfterDelay();
+                  } else {
+                    console.error('Error fetching user profile:', error);
+                  }
+                }
+              });
             },
             error: (error) => {
               console.error('Error fetching current user details:', error);
@@ -129,15 +158,31 @@ export class UserProfileDetailsComponent implements OnInit, OnDestroy {
     this.posts = [];
     this.userLoaded = false;
     this.postsLoaded = false;
-
+  
     // Fetch user details for another user
     this.userService.getUserDetails(userId).subscribe({
       next: (userData) => {
-        if (userData.success) {
+        if (userData) {
           this.user = userData.user;
+          this.posts = userData.posts || [];
           this.userLoaded = true;
           this.fetchPosts(this.user.posts || []);
         }
+
+        this.userService.getUserProfile(userId).subscribe({
+          next: (profileData) => {
+            if (profileData) {
+              this.user = profileData.userProfile
+            }
+          },
+          error: (error) => {
+            if (error.status === 404) {
+              console.warn('User has not updated his profile.');
+            } else {
+              console.error('Error fetching user profile:', error);
+            }
+          }
+        });
       },
       error: (error) => {
         console.error('Error fetching user details:', error);
@@ -147,7 +192,7 @@ export class UserProfileDetailsComponent implements OnInit, OnDestroy {
         this.loaderService.hide('userProfileLoader');
       },
     });
-  }
+  }  
 
   private fetchPosts(postIds: string[]): void {
     if (!postIds || postIds.length === 0) {
@@ -193,12 +238,6 @@ export class UserProfileDetailsComponent implements OnInit, OnDestroy {
     const totalItems = this.selectedCategory === 'posts' ? this.posts.length : this.savedItems.length;
     const pageCount = Math.ceil(totalItems / (this.selectedCategory === 'posts' ? this.postsPerPage : this.savedItemsPerPage));
     return Array.from({ length: pageCount }, (_, i) => i + 1);
-  }
-
-  ngOnDestroy() {
-    if (this.routeSub) {
-      this.routeSub.unsubscribe();
-    }
   }
 
   deletePost(postId: string): void {
@@ -330,6 +369,21 @@ export class UserProfileDetailsComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
+    }
+  }
+  private hideMessageAfterDelay(): void {
+    this.hideMessageTimer = setTimeout(() => {
+      this.showProfileUpdateMessage = false;
+    }, 10000);
+  }
+
+  ngOnDestroy() {
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
+
+    if (this.hideMessageTimer) {
+      clearTimeout(this.hideMessageTimer);
     }
   }
 }

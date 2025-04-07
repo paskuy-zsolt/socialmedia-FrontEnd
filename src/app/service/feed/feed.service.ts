@@ -3,15 +3,12 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostsResponse } from '../../modules/post/post.model';
 
-
 @Injectable({
   providedIn: 'root'
 })
 
 export class FeedService {
-
-  private apiUrl = "https://connect-hub.eu";
-
+  private apiUrl = "http://localhost:3000";
   private http = inject(HttpClient);
   
   getPosts(page: number, limit: number = 10): Observable<PostsResponse> {

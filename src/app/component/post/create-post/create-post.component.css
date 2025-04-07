@@ -1,7 +1,6 @@
 .container {
     width: 500px;
-    max-width: 442px;
-    margin: 1rem;
+    margin: 1rem 0;
     padding: 3rem 3.5rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, .2);
     border-radius: 4px;
@@ -28,6 +27,8 @@
 
 input,
 textarea {
+    display: block;
+    width: 100% !important;
     padding: 0.75rem;
     margin-bottom: 3px;
     box-sizing: border-box;
@@ -37,6 +38,7 @@ textarea {
     background: #eeeeee;
     font: 500 15px "Quicksand", sans-serif;
 }
+
 
 input:focus,
 input:focus-within,
@@ -136,4 +138,20 @@ svg {
 .icon-checkmark path {
     transition: stroke-dashoffset 350ms ease;
     transition-delay: 100ms;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        width: calc(100% - 4rem);
+        padding: 2rem 1.5rem;
+        left: 2rem;
+        margin: 0;
+        transform: translateY(-50%);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .form_title {
+        font-size: 24px;
+    }
 }

@@ -3,14 +3,17 @@ import { UserService } from '../../../service/user/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LoaderService } from '../../../service/loader/loader.service';
-import { User, UserResponse } from '../../../modules/user/user.model';
+import { User, userProfile, UserResponse } from '../../../modules/user/user.model';
 import { UsersLoaderComponent } from '../../loader/users-loader/users-loader.component';
 import { AuthService } from '../../../service/auth/auth.service';
+import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule, UsersLoaderComponent, RouterModule],
+  imports: [CommonModule, UsersLoaderComponent, RouterModule, FormsModule, FontAwesomeModule],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
@@ -21,6 +24,10 @@ export class UserListComponent implements OnInit {
   currentUser: User | null = null;
   error: string | null = null;
   loading: boolean = true;
+  searchTerm: string = '';
+  
+  // FontAwesome icons for navigation and UI elements
+  search = faMagnifyingGlass;
 
   private userService = inject(UserService);
   private loaderService = inject(LoaderService);
@@ -69,6 +76,17 @@ export class UserListComponent implements OnInit {
       next: (data: UserResponse) => {
         if (data.success) {
           this.users = data.users;
+      
+          this.users.forEach(user => {
+            this.userService.getUserProfile(user._id!).subscribe({
+              next: (data: { userProfile: userProfile }) => {
+                user.avatar = data.userProfile.avatar
+              },
+              error: (error) => {
+                console.error('Error fetching user details:', error);
+              }
+            });
+          })
 
           this.filterUsers();
         } else {
@@ -89,7 +107,20 @@ export class UserListComponent implements OnInit {
   // Filter out the current user
   private filterUsers(): void {
     if (this.currentUser) {
-      this.filteredUsers = this.users.filter((user: User) => user._id !== this.currentUser!.userID);
+      this.filteredUsers = this.users
+        .filter((user: User) => user._id !== this.currentUser!.userID)
+        .filter((user: User) => user.name) // Ensure name is defined
+        .sort((a, b) => (a.name && b.name ? a.name.localeCompare(b.name) : 0)); // Sort safely
     }
+  }
+
+  onSearchChange(): void {
+    this.filteredUsers = this.users
+    .filter((user: User) => 
+      user._id !== this.currentUser!.userID &&
+      user.name?.toLowerCase().includes(this.searchTerm.toLowerCase()) // Optional chaining
+    )
+    .filter((user: User) => user.name) // Ensure name is defined
+    .sort((a, b) => (a.name && b.name ? a.name.localeCompare(b.name) : 0)); // Sort safely
   }
 }

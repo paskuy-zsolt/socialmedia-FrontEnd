@@ -1,4 +1,16 @@
-<div class="container">
+<div class="user-container">
+    <div class="row">
+        <input 
+            type="text" 
+            [(ngModel)]="searchTerm" 
+            (input)="onSearchChange()" 
+            placeholder="Search users..." 
+            class="search-input"
+            autofocus
+        />
+        <fa-icon [icon]="search" class="icon"></fa-icon>
+    </div>
+  
     <div *ngIf="loading">
         <app-users-loader aria-label="Loading users..."></app-users-loader>
     </div>
@@ -6,7 +18,7 @@
     <div *ngIf="error" class="error-message">{{ error }}</div>
   
     <div *ngIf="!loading && filteredUsers.length === 0 && !error" class="no-users">
-        No other users found.
+        <p>No users found.</p>
     </div>
   
     <div *ngIf="!loading && filteredUsers.length > 0" class="users">

@@ -393,13 +393,6 @@ span.bubble:before {
   position: relative;
   z-index: 2;
 }
-  
-/* Small devices (landscape phones) */
-@media (min-width: 576px) {
-  .app_container {
-    max-width: 540px;
-  }
-}
 
 /* Medium devices (tablets) */
 @media (min-width: 768px) {
@@ -434,17 +427,42 @@ a {
   text-decoration: none;
 }
 
+@media (max-width: 1200px) {
+  body {
+    padding: 1.5rem 2rem;
+  }
+}
 
+@media (max-width: 600px) {
+  body {
+    padding: .5rem;
+    font: 400 14px / 1.4 "Roboto", sans-serif;
+  }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+@media (max-width: 500px) {
+  h1 {
+    font-size: 36px;
+  }
+  
+  h2 {
+    font-size: 23px;
+  }
+  
+  h3 {
+    font-size: 19px;
+  }
+  
+  h4 {
+    font-size: 16px;
+  }
+  
+  h5 {
+    font-size: 15px;
+  }
+  
+  h6 {
+    font-size: 14px;
+  }
+  
+}

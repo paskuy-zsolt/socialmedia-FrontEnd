@@ -194,22 +194,23 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
-    this.userService.signup(this.signUpForm.value).subscribe(
-      (response) => {
+
+    this.userService.signup(this.signUpForm.value).subscribe({
+      next: () => {
         this.successMessageService.showSuccessMessage();
         setTimeout(() => {
           this.startCountdown();
         }, 1000);
       },
-      (error) => {
+      error: (error) => {
         if (error.status === 409) {
           this.emailError = 'Email already exists.';
         } else {
           this.emailError = 'An error occurred during sign-up. Please try again later.';
           console.error('Error signing up:', error);
         }
-      }
-    );
+      },
+    });
   }
   
   startCountdown() {

@@ -1,0 +1,77 @@
+#back-to-top-button {
+    position: fixed;
+    bottom: 0;
+    border-bottom-left-radius: unset;
+    background: #fff;
+    padding: 12px 16px 11px 30px;
+    display: flex;
+    align-items: center;
+    width: 160px;
+    transition: all cubic-bezier(0.39, 0.575, 0.565, 1) .3s;
+    cursor: pointer;
+}
+
+#back-to-top-button.bottom {
+    bottom: 60px;
+    border-bottom-left-radius: 124px;
+}
+
+#back-to-top-button:hover {
+    background-color: #010726;
+}
+
+#back-to-top-button:hover .icon,
+#back-to-top-button:hover span {
+    color: #f5f5f5;
+}
+
+span {
+    margin: 0 0 0 8px;
+    font-size: 17px;
+    font-weight: 500;
+    display: inline-block;
+    text-align: left;
+}
+
+/* left: 60px; */
+@media only screen and (max-width: 1200px) {
+    #back-to-top-button,
+    #back-to-top-button.bottom {
+        position: relative;
+        display: block !important;
+        width: 55px;
+        height: 50px;
+        background: rgb(255, 255, 255);
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        border: 4px solid #fff;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    #back-to-top-button:hover {
+        background-color: #fff;
+    }
+
+    #back-to-top-button .icon {
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        color: #fff;
+        transform: translateY(50px);
+        transition: opacity .2s ease, transform .2s ease;
+    }
+    
+    #back-to-top-button:hover .icon {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        color: #010726;
+    }
+
+    span {
+        display: none;
+    }
+}

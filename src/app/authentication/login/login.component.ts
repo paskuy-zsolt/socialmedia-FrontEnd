@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../service/auth/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,6 @@ import { UserService } from '../../service/user/user.service';
 })
 
 export class LoginComponent {
-
   loginForm: FormGroup;
   emailError: string = '';
   passwordError: string = '';
@@ -34,30 +33,34 @@ export class LoginComponent {
     private userService: UserService
   ) {
     this.loginForm = this.formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]),
-      password: new FormControl('', [Validators.required]),
-    })
+      email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
+      password: ['', [Validators.required]],
+    });
   }
 
-  getEmailErrorMessage() {
+  getEmailErrorMessage(): string {
     const control = this.loginForm.get('email');
     if (control?.hasError('required')) {
       return 'Email is required';
-    } else if (control?.hasError('email')) {
+    }
+    if (control?.hasError('email')) {
       return 'Not a valid email';
-    } else if (control?.hasError('pattern')) {
+    }
+    if (control?.hasError('pattern')) {
       return 'Email format is invalid';
     }
     return '';
   }
   
-  getPasswordErrorMessage() {
+  getPasswordErrorMessage(): string {
     const control = this.loginForm.get('password');
     if (control?.hasError('required')) {
       return 'Password is required';
-    } else if (control?.hasError('minlength')) {
+    }
+    if (control?.hasError('minlength')) {
       return 'Password must be at least 8 characters long';
-    } else if (control?.hasError('maxlength')) {
+    }
+    if (control?.hasError('maxlength')) {
       return 'Password cannot be more than 120 characters long';
     }
     return '';
@@ -72,40 +75,42 @@ export class LoginComponent {
 
       const { email, password } = this.loginForm.value;
 
-      this.userService.login( email, password ).subscribe((res) => {        
-        const token = res.headers.get('Authorization');
-        const expires = res.headers.get('Expires');
+      this.userService.login(email, password).subscribe({
+        next: (res) => {
+          const token = res.headers.get('Authorization');
+          const expires = res.headers.get('Expires');
 
-        if (token) {
-          this.authService.setAuthToken(token, expires);
-        }
-
-        this.router.navigateByUrl("/feed");
-      },
-      (error) => {
-          if (error.status === 404) {
-              this.emailError = "Email doesn't exist.";
-          } else if (error.status === 401) {
-              this.passwordError = 'Incorrect password.';
-          } else {
-              console.error('Error logging in:', error);
+          console.log('We a have a good response');
+  
+          if (token) {
+            this.authService.setAuthToken(token, expires);
+            this.router.navigateByUrl('/feed');
+          }else {
+            this.messageError = 'Token not found in the response.';
           }
+        },
+        error: (error) => {
+          if (error.status === 404) {
+            this.emailError = "Email doesn't exist.";
+          } else if (error.status === 401) {
+            this.passwordError = 'Incorrect password.';
+          } else {
+            this.messageError = 'An unexpected error occurred. Please try again later.';
+            console.error('Error logging in:', error);
+          }
+        }
       });
     } else {
       this.messageError = `Note: "<em>Please fill out all required fields correctly.</em>"`;
     }
   }
 
-  passwordState() {
+  togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
-    const password = document.getElementById('password') as HTMLFormElement;
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
 
-    if (password) {
-      if (this.passwordVisible) {
-        password['type'] = "text";
-      } else {
-        password['type'] = "password";
-      }
+    if (passwordInput) {
+      passwordInput.type = this.passwordVisible ? 'text' : 'password';
     }
   }
 }

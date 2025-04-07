@@ -11,7 +11,7 @@
                 <div class="form-control form_input_group">
                     <div class="input-icon-wrapper">
                         <input id="password" formControlName="password" [type]="passwordVisible ? 'text' : 'password'" class="form_input"  placeholder="Password" required />
-                        <fa-icon [icon]="passwordVisible ? hidePassword : showPassword" (click)="passwordState()" class="password-icon"></fa-icon>
+                        <fa-icon [icon]="passwordVisible ? hidePassword : showPassword" (click)="togglePasswordVisibility()" class="password-icon"></fa-icon>
                     </div>
                     <div *ngIf="submitted && getPasswordErrorMessage()" class="form_message_error">{{ getPasswordErrorMessage() }}</div>
                     <div *ngIf="passwordError" class="form_message form_message_error">{{ passwordError }}</div>

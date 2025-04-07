@@ -5,11 +5,12 @@ import { FooterComponent } from '../footer/footer.component';
 import { FeedComponent } from '../feed/feed.component';
 import { BubblesService } from '../../service/animation/bubbles/bubbles.service';
 import { RouterOutlet } from '@angular/router';
+import { BackToTopComponent } from '../back-to-top/back-to-top.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, SidebarComponent, FeedComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, SidebarComponent, FeedComponent, FooterComponent, BackToTopComponent],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })

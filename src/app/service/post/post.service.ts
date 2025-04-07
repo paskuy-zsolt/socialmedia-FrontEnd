@@ -8,7 +8,7 @@ import { Post } from '../../modules/post/post.model';
 })
 export class PostService {
 
-  private apiUrl = "https://connect-hub.eu";
+  private apiUrl = "http://localhost:3000";
 
   private http = inject(HttpClient);
 

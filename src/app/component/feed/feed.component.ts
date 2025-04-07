@@ -3,7 +3,8 @@ import { FeedService } from '../../service/feed/feed.service';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../service/post/post.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TimePassedPipe } from '../../pipe/time-passed.pipe';
+import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { TimePassedPipe } from '../../pipe/time/time-passed.pipe';
 import { PostComponent } from '../post/post.component';
 import { JwtDecoderService } from '../../service/jwt-decoder/jwt-decoder.service';
 import { AuthService } from '../../service/auth/auth.service';
@@ -22,8 +23,8 @@ import { PostLoaderComponent } from '../loader/post-loader/post-loader.component
   styleUrls: ['./feed.component.css']
 })
 
-
 export class FeedComponent implements OnInit {
+  redirect = faAnglesRight;
 
   currentPage: number = 1;
   limit: number = 10;
@@ -45,7 +46,6 @@ export class FeedComponent implements OnInit {
   @Input() posts: Post[] = [];
 
   ngOnInit(): void {
-
     this.loaderService.show('postLoader');
     this.initializeUser();
     this.loadPosts();
@@ -54,6 +54,10 @@ export class FeedComponent implements OnInit {
     this.togglePostService.isCreatePostVisible$.subscribe(visible => {
       this.isCreatePostVisible = visible;
     });
+  }
+
+  onAddPost() {
+    this.togglePostService.showForm();
   }
 
   private initializeUser(): void {

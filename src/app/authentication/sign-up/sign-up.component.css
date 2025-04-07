@@ -187,3 +187,30 @@ option:target {
     color: #555;
     user-select: none;
 }
+
+@media only screen and (max-width: 770px) {
+    .container {
+        width: auto;
+        max-width: unset;
+        margin: 1rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container {
+        padding: 2rem 2.25rem;
+        width: calc(100% - 2rem);
+        margin: 1rem auto;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .form_select_group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    select {
+        width: 100%;
+    }
+}

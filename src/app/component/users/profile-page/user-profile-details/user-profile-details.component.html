@@ -5,13 +5,12 @@
     </div>
 
     <div *ngIf="user" class="user_details">
-
         <img 
             class="user_avatar" 
-            [src]="user.avatar || fallbackImage" 
+            [src]="avatarUrl" 
             alt="{{ user.name ? user.name + '\'s avatar' : 'User avatar' }}" 
         >
-        
+
         <div class="user_about">
             <div *ngIf="user.name" class="user_name">
                 <div *ngIf="isCurrentUserProfile">
@@ -23,13 +22,13 @@
             </div>
 
             <!-- Show "Personal Profile Details" only if viewing own profile -->
-            <div *ngIf="isCurrentUserProfile">
-                <div *ngIf="user.email" class="user_email">E-mail: {{ user.email }}</div>
-                <div *ngIf="user.phone" class="user_phone">Phone: {{ user.phone }}</div>
+            <div *ngIf="isCurrentUserProfile" class="user_main">
+                <div *ngIf="user.email" class="user_email"><strong><em>E-mail:</em></strong> <span>{{ user.email }}</span></div>
+                <div *ngIf="user.phone" class="user_phone"><strong><em>Phone:</em></strong> <span>{{ user.phone }}</span></div>
             </div>
             
-            <div *ngIf="user.username" class="user_username">Username: {{ user.username }}</div>
-            <div *ngIf="user.description" class="user_description">About: {{ user.description }}</div>
+            <div *ngIf="user.username" class="user_username"><strong><em>Nickname:</em></strong> <span>{{ user.username }}</span></div>
+            <div *ngIf="user.description" class="user_description"><strong><em>About:</em></strong> <br><span>{{ user.description }}</span></div>
         </div>
 
         <!-- Show "Update Profile" button only if viewing own profile -->
@@ -38,6 +37,11 @@
                 <fa-icon [icon]="icon_edit" class="icon"></fa-icon>
                 <span>Update Profile</span>
             </a>
+            
+            <div *ngIf="showProfileUpdateMessage" class="profile-update-message">
+                <div class="triangle"></div>
+                <p>Update your profile</p>
+            </div>
         </div>
     </div>
     
@@ -51,13 +55,13 @@
                 </label>
             </div>
             
-            <div class="saved_category subcategory">
+            <!-- <div class="saved_category subcategory">
                 <input type="radio" id="saved" name="category" value="saved" [(ngModel)]="selectedCategory">
                 <label for="saved" class="subcategory">
                     <fa-icon [icon]="icon_saved" class="icon"></fa-icon>
                     <span>Saved</span>
                 </label>
-            </div>
+            </div> -->
         </div>
 
         <div class="content">
@@ -134,17 +138,17 @@
 
             </div>
 
-            <div *ngIf="selectedCategory === 'saved'">
+            <!-- <div *ngIf="selectedCategory === 'saved'">
                 <p>Content for saved items goes here.</p>
-                <!-- Add saved items content here -->
-            </div>
+                Add saved items content here
+            </div> -->
         </div>
     </div>
 
     <!-- Update Post Form -->
     <div *ngIf="selectedPost" class="update-post-form" id="update-post" #updatePostSection>
-        <h2>Update Post</h2>
         <form (ngSubmit)="submitUpdatedPost()">
+            <h2>Update Post</h2>
             <div class="form-group">
                 <label for="title">Title</label>
                 <input id="title" [(ngModel)]="selectedPost.title" name="title" required />

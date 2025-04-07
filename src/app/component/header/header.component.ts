@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../service/auth/auth.service';
 import { UserService } from '../../service/user/user.service';
 import { User } from '../../modules/user/user.model';
+import { SidebarService } from '../../service/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -19,10 +20,11 @@ export class HeaderComponent implements OnInit {
   
   currentUser: User | null = null;
   
-  profile = faUser;
+  leave = faDoorOpen;
 
   public authService = inject(AuthService);
   public userService = inject(UserService);
+  public sidebarService = inject(SidebarService);
   
   currentUser$ = this.authService.getCurrentUser();
 
@@ -60,5 +62,9 @@ export class HeaderComponent implements OnInit {
     this.userService.logout().subscribe(() => {
       this.authService.clearAuthToken();
     });
+  }
+
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar();
   }
 }
