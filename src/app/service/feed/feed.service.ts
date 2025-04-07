@@ -8,7 +8,7 @@ import { PostsResponse } from '../../modules/post/post.model';
 })
 
 export class FeedService {
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = "https://www.connect-hub.eu";
   private http = inject(HttpClient);
   
   getPosts(page: number, limit: number = 10): Observable<PostsResponse> {

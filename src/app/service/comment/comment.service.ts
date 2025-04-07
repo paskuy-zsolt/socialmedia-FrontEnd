@@ -8,7 +8,7 @@ import { User } from '../../modules/user/user.model';
 })
 export class CommentService {
 
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = "https://www.connect-hub.eu";
 
   private http = inject(HttpClient);
 
